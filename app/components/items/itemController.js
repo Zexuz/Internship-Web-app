@@ -30,7 +30,9 @@ app.controller('itemController', [ '$scope', '$http', 'basket', function ( $scop
 
 
     $scope.removeAllItems = function () {
-        basket.removeItem(null, true);
+        basket.empty();
+        $scope.myItems = basket.items;
+
     };
 
 

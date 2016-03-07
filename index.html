@@ -7,7 +7,7 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/Materialize/dist/js/materialize.js"></script>
-    <script src="bower_components/simple-basket/dist/simplebasket.js"></script>
+    <script src="bower_components/simple-basket/dist/simpebasket.js"></script>
     <link href="bower_components/Materialize/dist/css/materialize.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="./lib/basket/basket.js"></script>
@@ -17,6 +17,14 @@
 
 </head>
 <body>
+<nav>
+    <div class="nav-wrapper">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="./#/items">Shopping basket</a></li>
+            <li><a href="./#/index">Index</a></li>
+        </ul>
+    </div>
+</nav>
 
 <div ng-view></div>
 
