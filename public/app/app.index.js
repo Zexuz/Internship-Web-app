@@ -1,9 +1,10 @@
 var app = angular.module('myApp', [
-    'ngRoute'
+    'ngRoute',
+    'ngResource'
 ]);
 
-app.config(['$routeProvider',
-    function ($routeProvider) {
+app.config([ '$routeProvider',
+    function ( $routeProvider ) {
         $routeProvider
 
             .when('/start', {
@@ -18,15 +19,11 @@ app.config(['$routeProvider',
             })
 
 
-
             .otherwise({
                 redirectTo: '/start'
             });
-    }]);
+    } ]);
 
-
-function reSize(){
-
-}
+app.constant('BasketServiceCons', {path:"BasketService/v1"});
 
 

@@ -3,12 +3,13 @@
 class RestApi {
 
 
-    constructor( url ) {
+    constructor( url, $http ) {
         this._url = url;
+        this.$http = $http;
     }
 
     sendPost( path, data, sc, ec ) {
-        RestApi._makeRequest({
+        this._makeRequest({
             method: "POST",
             url: this.url + path,
             data: data
@@ -16,15 +17,16 @@ class RestApi {
     }
 
     sendGet( path, sc, ec ) {
-        RestApi._makeRequest({
+        this._makeRequest({
             method: "GET",
             url: this.url + path
         }, sc, ec);
     }
 
-    static _makeRequest( options, successCallback, errorCallback ) {
-        $http(options).then(successCallback, errorCallback);
+    _makeRequest( options, successCallback, errorCallback ) {
+        this.$http(options).then(successCallback, errorCallback);
     }
+
 
 
     get url() {
