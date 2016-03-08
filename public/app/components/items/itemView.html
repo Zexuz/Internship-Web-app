@@ -1,0 +1,29 @@
+<div class="container">
+
+    <label>
+        <input type="text" placeholder="Search" ng-model="searchInput">
+    </label>
+
+    <a class="btn red" ng-click="removeAllItems()">Remove all items in my basket</a>
+    <h3>Items in my basket</h3>
+
+    <div ng-repeat="item in myItems">
+        <article>
+            <a href="" class="btn red lighten-3" ng-click="removeItem(item,false)">Remove item from basket</a>
+            <span>Name </span>{{item.name}}
+            <span>SKU </span>{{item.sku}}
+            <span>Quantity </span>{{item.quant}}
+        </article>
+    </div>
+
+    <hr>
+
+    <h3>Items in database</h3>
+    <div ng-repeat="item in items |filter:searchInput">
+        <article>
+            <a href="" class="btn" ng-click="addItem(item)"> Add item to basket</a>
+            <span>Name </span>{{item.name}}
+            <span>SKU </span>{{item.sku}}
+        </article>
+    </div>
+</div>

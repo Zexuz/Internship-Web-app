@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- BOWER-->
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/Materialize/dist/js/materialize.js"></script>
+    <!-- My Own-->
+    <script src="./app/app.index.js"></script>
+    <script src="./app/shared/factories/basket.js"></script>
+    <!-- Styles-->
+    <link href="bower_components/Materialize/dist/css/materialize.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<nav>
+    <div class="nav-wrapper">
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+            <li><a href="./#/items">Shopping basket</a></li>
+            <li><a href="./#/index">Index</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div ng-view></div>
+
+<!-- My angular scripts-->
+<script src="./app/components/start/startController.js"></script>
+<script src="./app/components/items/itemController.js"></script>
+<script src="./app/shared/factories/basket.js"></script>
+
+<!-- MY other libs -->
+<script src="./lib/RestApi/RestApi.js"></script>
+<script src="./lib/basket/BasketApi.js"></script>
+
+
+</body>
+</html>
