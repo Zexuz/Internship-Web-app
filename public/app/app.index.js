@@ -8,14 +8,19 @@ app.config([ '$routeProvider',
         $routeProvider
 
             .when('/start', {
-                templateUrl: './app/components/start/startView.html',
+                templateUrl: '../views/startView.html',
                 controller: 'startController'
             })
 
 
             .when('/items', {
-                templateUrl: './app/components/items/itemView.html',
-                controller: 'itemController'
+                templateUrl: '../views/itemView.html',
+                controller: 'cartController'
+            })
+
+            .when('/login', {
+                templateUrl: '../views/loginView.html',
+                controller: 'loginController'
             })
 
 
@@ -24,6 +29,6 @@ app.config([ '$routeProvider',
             });
     } ]);
 
-app.constant('BasketServiceCons', {path:"BasketService/v1"});
+app.constant('BasketServiceApiURL', "BasketService/v1");
 
 

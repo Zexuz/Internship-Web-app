@@ -7,73 +7,49 @@ var router = express.Router();
 var Basket = require('../lib/Basket');
 var SimpleRes = require('../lib/SimpleResponse');
 
-router.use(function logger( req, res, next ) {
-    var key = req.query.key;
-    var logString = `Method : ${req.method}, Key : ${req.query.key}, Path : BasketService/v1/Basket${req.path}, Date: ${new Date()}`;
-    console.log(logString);
+router.use(logger);
 
+router.get('/', getMyCart);
+router.post('/', addItem);
+router.delete('/', emptyMyCart);
+router.get('/:sku', getItem);
+router.delete('/:sku', deleteItem);
 
-    if ( !key ) {
-        let data = { Error: "Need key" };
-        return SimpleRes.sendSimpleResponse(req, res, false, data, 400);
-    }
+function getMyCart( req, res ) {
 
-    if ( key !== "admin" ) {
-        let data = { Error: "Key is not accepted" };
-        return SimpleRes.sendSimpleResponse(req, res, false, data, 403);
-    }
+}
 
-    next();
-});
+function addItem( req, res ) {
 
-router.get('/', function ( req, res ) {
-    if ( !Basket.getBasketFromId(req.query.key) ) {
-        __baskets.push(new Basket(req.query.key));
-        console.log("Creating basket with id :", req.query.key);
-    }
-
-    SimpleRes.sendSimpleResponse(req, res, true, Basket.getBasketFromId(req.query.key));
-});
-
-router.post('/', function ( req, res ) {
     var userBasket = Basket.getBasketFromId(req.query.key);
 
     if ( !userBasket ) {
-        res.status(404).json({ Error: `could not fetch basket associated with this key ${req.query.key}` });
+        SimpleRes.sendSimpleResponse(req, res, false, { Error: `could not fetch basket associated with this key ${req.query.key}` }, 404);
         return;
     }
 
-    Basket.getItems(function ( items ) {
-
-        var foundItem = false;
-        for ( var i = 0; i < items.length; i++ ) {
-            if ( req.params.sku === items[ i ].sku + "" ) { // convert this to a string
-                foundItem = true;
-                break;
-            }
-        }
-
-        if ( !foundItem ) {
-            SimpleRes.sendSimpleResponse(req, res, false, { Error: `No item in database with that SKU ${req.params.sku}` }, 404);
+    request("http://localhost:3000/ItemService/v1/Items", function ( error, response, body ) {
+        if ( error || response.statusCode != 200 ) {
+            SimpleRes.sendSimpleResponse(req, res, false, { Error: `could not find article in database ${req.query.key}` }, 404);
             return;
         }
 
-        if ( !userBasket.addItem(items[ i ]) ) {
-            SimpleRes.sendSimpleResponse(req, res, false, { Error: "Can't add item(s) to basket!" }, 500);
-            return;
+        var json;
+
+        try {
+            json = JSON.parse(body);
+        } catch ( e ) {
+
         }
 
-        var basket = {
-            id: userBasket.basketId,
-            items: userBasket.items
-        };
 
+        var res = JSON.parse(body);
+        callback(res.products);
+    })
 
-        SimpleRes.sendSimpleResponse(req, res, true, basket);
-    });
-});
+}
 
-router.delete('/', function ( req, res ) {
+function emptyMyCart( req, res ) {
     var userBasket = Basket.getBasketFromId(req.query.key);
 
     if ( !userBasket ) {
@@ -82,10 +58,9 @@ router.delete('/', function ( req, res ) {
     }
     userBasket.empty();
 
+}
 
-});
-
-router.get('/:sku', function ( req, res ) {
+function getItem( req, res ) {
     var sku = req.params.sku;
 
     var userBasket = Basket.getBasketFromId(req.query.key);
@@ -102,24 +77,57 @@ router.get('/:sku', function ( req, res ) {
     }
 
     SimpleRes.sendSimpleResponse(req, res, false, { Error: 'Item not in basket' }, 404);
+}
 
-});
-
-router.delete('/:sku', function ( req, res ) {
+function deleteItem( req, res ) {
     var sku = req.params.sku;
 
     var basket = Basket.getBasketFromId(req.query.key);
 
     var index = basket.indexOfItem(sku);
     if ( index > -1 ) {
-        basket.removeItem(basket.items[index]);
+        basket.removeItem(basket.items[ index ]);
         SimpleRes.sendSimpleResponse(req, res, true, basket.items[ index ]);
         return;
     }
 
     SimpleRes.sendSimpleResponse(req, res, false, { Error: 'Item not in basket' }, 404);
-});
+}
 
+/*
+ Code for controlling the inventory
+
+ Basket.getItems(function ( items ) {
+
+ var foundItem = false;
+ for ( var i = 0; i < items.length; i++ ) {
+ if ( req.params.sku === items[ i ].sku + "" ) { // convert this to a string
+ foundItem = true;
+ break;
+ }
+ }
+
+ if ( !foundItem ) {
+ SimpleRes.sendSimpleResponse(req, res, false, { Error: `No item in database with that SKU ${req.params.sku}` }, 404);
+ return;
+ }
+
+ if ( !userBasket.addItem(items[ i ]) ) {
+ SimpleRes.sendSimpleResponse(req, res, false, { Error: "Can't add item(s) to basket!" }, 500);
+ return;
+ }
+
+ var basket = {
+ id: userBasket.basketId,
+ items: userBasket.items
+ };
+
+
+ SimpleRes.sendSimpleResponse(req, res, true, basket);
+ });
+
+
+ */
 
 /*
  getItemsFromDataBase(function ( err, items ) {
@@ -150,4 +158,25 @@ router.delete('/:sku', function ( req, res ) {
  })
  }
  */
+
+function logger( req, res, next ) {
+    var key = req.query.key;
+    var logString = `Method : ${req.method}, Key : ${req.query.key}, Path : BasketService/v1/Basket${req.path}, Date: ${new Date()}`;
+    console.log(logString);
+
+
+    if ( !key ) {
+        let data = { Error: "Need key" };
+        return SimpleRes.sendSimpleResponse(req, res, false, data, 400);
+    }
+
+    if ( key !== "admin" ) {
+        let data = { Error: "Key is not accepted" };
+        return SimpleRes.sendSimpleResponse(req, res, false, data, 403);
+    }
+
+    next();
+}
+
+
 module.exports = router;

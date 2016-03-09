@@ -2,6 +2,10 @@
 <html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
+    <!-- Google auth -->
+    <meta name="google-signin-scope" content="profile email">
+    <meta name="google-signin-client_id" content="810399730223-922f1ahb6281ce72fvrm7u6ou6g52bb0.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js"></script>
     <title>Title</title>
     <!-- BOWER-->
     <script src="bower_components/angular/angular.js"></script>
@@ -11,10 +15,10 @@
     <script src="bower_components/Materialize/dist/js/materialize.js"></script>
     <!-- My Own-->
     <script src="./app/app.index.js"></script>
-    <script src="./app/shared/factories/basket.js"></script>
     <!-- Styles-->
     <link href="bower_components/Materialize/dist/css/materialize.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="styles.css">
+
 </head>
 <body>
 <nav>
@@ -22,6 +26,7 @@
         <ul id="nav-mobile" class="right hide-on-med-and-down">
             <li><a href="./#/items">Shopping basket</a></li>
             <li><a href="./#/index">Index</a></li>
+            <li><a href="./#/login">Login</a></li>
         </ul>
     </div>
 </nav>
@@ -29,9 +34,12 @@
 <div ng-view></div>
 
 <!-- My angular scripts-->
-<script src="./app/components/start/startController.js"></script>
-<script src="./app/components/items/itemController.js"></script>
-<script src="./app/shared/factories/basket.js"></script>
+<script src="./app/controllers/startController.js"></script>
+<script src="app/controllers/cartController.js"></script>
+<script src="./app/controllers/loginController.js"></script>
+<script src="app/services/cartFactory.js"></script>
+<script src="app/services/userFactory.js"></script>
+<script src="app/services/cartResource.js"></script>
 
 <!-- MY other libs -->
 <script src="./lib/RestApi/RestApi.js"></script>

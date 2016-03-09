@@ -1,12 +1,8 @@
 var app = angular.module('myApp');
 
-app.factory("Item", function ( $resource ) {
-    return $resource("/BasketService/v1/Basket/:sku",{sku:'@sku',key:"admin"});
-});
+app.factory('CartFactory', [ '$http', 'BasketServiceApiURL', function ( $http, BASKETSERVICEAPIURL ) {
 
-app.factory('BasketService', [ '$http', 'BasketServiceCons', function ( $http, BSC ) {
-
-    var service = new BasketApi(BSC.path, $http);
+    var service = new BasketApi(BASKETSERVICEAPIURL, $http);
     var res = {};
 
     res.login = function ( key, callback ) {

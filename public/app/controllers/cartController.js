@@ -1,12 +1,12 @@
 var app = angular.module("myApp");
 
-app.controller('itemController', [ '$scope', '$http', 'Item', 'BasketService', function ( $scope, $http, Item, basketService ) {
+app.controller('cartController', [ '$scope', '$http', 'Item', 'CartFactory', function ( $scope, $http, Item, cart ) {
 
 
-    basketService.login("admin", function ( err, data ) {
+    cart.login("admin", function ( err, data ) {
         if ( err )return;
 
-        basketService.loadItems("admin", function ( err, items ) {
+        cart.loadItems("admin", function ( err, items ) {
             if ( err )return;
 
             $scope.items = items;
@@ -18,8 +18,7 @@ app.controller('itemController', [ '$scope', '$http', 'Item', 'BasketService', f
             console.log(res);
         }, function ( err ) {
             console.log(err);
-            Materialize.toast("Can't add item to basket!");
-
+            Materialize.toast("Can't add item to basket!",4000);
         });
     };
 
