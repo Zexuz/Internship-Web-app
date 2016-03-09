@@ -1,26 +1,38 @@
 var app = angular.module("myApp");
 
-app.controller('cartController', [ '$scope', '$http', 'Item', 'CartFactory', function ( $scope, $http, Item, cart ) {
+app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactory', function ( $scope, $http, cart, userFactory ) {
 
+    var token = userFactory.getData('googleUser').token;
 
-    cart.login("admin", function ( err, data ) {
-        if ( err )return;
-
-        cart.loadItems("admin", function ( err, items ) {
-            if ( err )return;
-
-            $scope.items = items;
-        });
+    cart.getMyCart(token, function ( err,data ) {
+        console.log("error" + JSON.stringify(err));
+        console.log("data" + data);
     });
 
-    $scope.addItem = function ( item ) {
-        Item.save({sku:item.sku}, function ( res ) {
-            console.log(res);
-        }, function ( err ) {
-            console.log(err);
-            Materialize.toast("Can't add item to basket!",4000);
-        });
+
+    $scope.addItem = function ( article ) {
+        if ( !token ) {
+            return Materialize.toast("You are not logged in, please login!");
+        }
+
+
     };
+
+    $scope.removeItem = function ( item ) {
+        if ( !token ) {
+            return Materialize.toast("You are not logged in, please login!");
+        }
+
+
+    };
+
+    $scope.getMyBasket = function () {
+        if ( !token ) {
+            return Materialize.toast("You are not logged in, please login!");
+        }
+
+
+    }
 
 
 } ]);

@@ -20,6 +20,10 @@ router.get('/', function ( req, res ) {
     }
 });
 
+router.get('/:sku', function ( req, res ) {
+    console.log("got one");
+});
+
 module.exports = router;
 
 

@@ -29,6 +29,9 @@ app.config([ '$routeProvider',
             });
     } ]);
 
-app.constant('BasketServiceApiURL', "BasketService/v1");
+app.constant('url', "http://localhost:3000");
+app.constant('BasketService', "BasketService/v1/Basket");
+app.constant('ItemService', "ItemService/v1/Item");
+app.constant('UserService', "UserService/v1/User");
 
 

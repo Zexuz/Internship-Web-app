@@ -6,24 +6,30 @@ class BasketApi extends RestApi {
         super(url, $http);
     }
 
-    login( key, callback ) {
-        this.sendGet("/Basket?key=" + key
+    getMyBasket( key, callback ) {
+        this.sendGet("?key=" + key
             , function successCallback( data ) {
-                Materialize.toast("Created Basket", 2000);
                 callback(null, data.data);
             }, function errorCallback( data ) {
-                Materialize.toast("Error: Failed Created Basket", 4000);
                 callback(data.data);
             });
     }
 
-    getItemsFromStore( key, callback ) {
-        this.sendGet("/ItemsInStore?key=" + key
+
+    addItem( sku, key, callback ) {
+        this.sendPost("/Basket?key=" + key, { sku: sku }
             , function successCallback( data ) {
-                Materialize.toast("fetched items", 2000);
                 callback(null, data.data);
             }, function errorCallback( data ) {
-                Materialize.toast("can't fetch items", 4000);
+                callback(data.data);
+            });
+    }
+
+    removeItem( sku, key, callback ) {
+        this.sendDel("/Basket?key=" + key, { sku: sku }
+            , function successCallback( data ) {
+                callback(null, data.data);
+            }, function errorCallback( data ) {
                 callback(data.data);
             });
     }

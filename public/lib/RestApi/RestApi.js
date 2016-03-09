@@ -23,10 +23,17 @@ class RestApi {
         }, sc, ec);
     }
 
+    sendDel( path, params, sc, ec ) {
+        this._makeRequest({
+            method: "GET",
+            url: this.url + path,
+            params: params
+        }, sc, ec);
+    }
+
     _makeRequest( options, successCallback, errorCallback ) {
         this.$http(options).then(successCallback, errorCallback);
     }
-
 
 
     get url() {

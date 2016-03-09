@@ -63,6 +63,12 @@ function emptyMyCart( req, res ) {
 function getItem( req, res ) {
     var sku = req.params.sku;
 
+    console.log("sku!!::::" , sku);
+    console.log("sku!!::::" , sku);
+    console.log("sku!!::::" , sku);
+    console.log("sku!!::::" , sku);
+    console.log("sku!!::::" , sku);
+    console.log("sku!!::::" , sku);
     var userBasket = Basket.getBasketFromId(req.query.key);
 
     if ( !userBasket ) {
