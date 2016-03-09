@@ -37,9 +37,9 @@ app.controller('loginController', [ '$scope', 'userFactory', '$http', function (
             loginC.saveData("googleUser", user);
             $scope.status = "Got key from google, checking key...";
 
-            $scope.isTokenValid(function ( err,loggedIn ) {
+            $scope.isTokenValid(function ( err, loggedIn ) {
 
-                if(loggedIn){
+                if ( loggedIn ) {
                     $scope.status = "You are now logged in as " + profile.getName();
                     return;
                 }

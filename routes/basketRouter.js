@@ -16,7 +16,7 @@ router.get('/:sku', getItem);
 router.delete('/:sku', deleteItem);
 
 function getMyCart( req, res ) {
-
+    SimpleRes.sendSimpleResponse(req, res, true, req.myApp.basket.toJson());
 }
 
 function addItem( req, res ) {
@@ -170,10 +170,15 @@ function logger( req, res, next ) {
         return SimpleRes.sendSimpleResponse(req, res, false, data, 400);
     }
 
-    if ( key !== "admin" ) {
-        let data = { Error: "Key is not accepted" };
+    var basket = Basket.getBasketFromId(key);
+    if ( !basket ) {
+        let data = { Error: "No basket with that key" };
         return SimpleRes.sendSimpleResponse(req, res, false, data, 403);
     }
+
+
+    req.myApp = {};
+    req.myApp.basket = basket;
 
     next();
 }
