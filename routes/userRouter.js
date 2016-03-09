@@ -1,6 +1,7 @@
 "use strict";
 var request = require('request');
 var SimpleResponse = require('../lib/SimpleResponse');
+var ShoppingBasket = require('../lib/Basket');
 
 var express = require('express');
 var router = express.Router();
@@ -17,6 +18,10 @@ router.post('/login', function ( req, res ) {
             return;
         }
 
+        if (!ShoppingBasket.getBasketFromId(token) ){
+            __baskets.push(new ShoppingBasket(token));
+        }
+
         SimpleResponse.sendSimpleResponse(req, res, true, data);
     })
 
@@ -24,7 +29,6 @@ router.post('/login', function ( req, res ) {
 });
 
 function isTokenValid( url, token, callback ) {
-    console.log(url + token);
     request(url + token, function ( error, response, body ) {
             if ( !error && response.statusCode == 200 ) {
 
