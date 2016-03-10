@@ -13,6 +13,11 @@ app.factory('CartFactory', [ '$http', 'BasketService', function ( $http, apiUrl 
         service.addItem(key, item, callback);
     };
 
+    res.emptyMyCart = function ( key, callback ) {
+        service.emptyMyCart(key, callback)
+    };
+
+
     return res;
 
 } ]);

@@ -25,7 +25,7 @@ class RestApi {
 
     sendDel( path, params, sc, ec ) {
         this._makeRequest({
-            method: "GET",
+            method: "delete",
             url: this.url + path,
             params: params
         }, sc, ec);

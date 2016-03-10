@@ -46,6 +46,26 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
 
     }
 
+    $scope.emptyMyCart = function () {
+        if ( !token ) {
+            return Materialize.toast("You are not logged in, please login!");
+        }
+
+
+        cart.emptyMyCart(token, function ( err, success ) {
+            console.log("success", success);
+            if ( err ) {
+                console.log(err);
+                return;
+            }
+
+            console.log("cart empty");
+            getMyItems(token, cart, function ( items ) {
+                $scope.myItems = items;
+            });
+        })
+    }
+
 
 } ]);
 

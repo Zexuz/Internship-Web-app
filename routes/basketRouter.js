@@ -65,6 +65,8 @@ function emptyMyCart( req, res ) {
     }
     userBasket.empty();
 
+    SimpleRes.sendSimpleResponse(req, res, true, {Hello:"world"});
+
 }
 
 function getItem( req, res ) {
