@@ -6,32 +6,33 @@ class BasketApi extends RestApi {
         super(url, $http);
     }
 
+
     getMyBasket( key, callback ) {
-        this.sendGet("?key=" + key
-            , function successCallback( data ) {
-                callback(null, data.data);
-            }, function errorCallback( data ) {
-                callback(data.data);
-            });
+        this.sendGet("?key=" + key,
+            BasketApi._handelSuccess.bind(null, callback),
+            BasketApi._handelError.bind(null, callback))
     }
 
 
-    addItem( sku, key, callback ) {
-        this.sendPost("/Basket?key=" + key, { sku: sku }
-            , function successCallback( data ) {
-                callback(null, data.data);
-            }, function errorCallback( data ) {
-                callback(data.data);
-            });
+    addItem( item, key, callback ) {
+        this.sendPost("?key=" + key, { sku: item.sku },
+            BasketApi._handelSuccess.bind(null, callback),
+            BasketApi._handelError.bind(null, callback))
     }
 
     removeItem( sku, key, callback ) {
-        this.sendDel("/Basket?key=" + key, { sku: sku }
-            , function successCallback( data ) {
-                callback(null, data.data);
-            }, function errorCallback( data ) {
-                callback(data.data);
-            });
+        this.sendDel("?key=" + key, { sku: sku },
+            BasketApi._handelSuccess.bind(null, callback),
+            BasketApi._handelError.bind(null, callback))
     }
+
+    static _handelSuccess( callback, data ) {
+        callback(null, data.data);
+    }
+
+    static _handelError( callback, data ) {
+        callback(data.data);
+    }
+
 
 }

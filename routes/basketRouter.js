@@ -21,16 +21,9 @@ function getMyCart( req, res ) {
 
 function addItem( req, res ) {
 
-    var userBasket = Basket.getBasketFromId(req.query.key);
-
-    if ( !userBasket ) {
-        SimpleRes.sendSimpleResponse(req, res, false, { Error: `could not fetch basket associated with this key ${req.query.key}` }, 404);
-        return;
-    }
-
     request("http://localhost:3000/ItemService/v1/Items", function ( error, response, body ) {
         if ( error || response.statusCode != 200 ) {
-            SimpleRes.sendSimpleResponse(req, res, false, { Error: `could not find article in database ${req.query.key}` }, 404);
+            SimpleRes.sendSimpleResponse(req, res, false, { Error: `could not fetch database!` }, 404);
             return;
         }
 
@@ -39,12 +32,26 @@ function addItem( req, res ) {
         try {
             json = JSON.parse(body);
         } catch ( e ) {
+            SimpleRes.sendSimpleResponse(req, res, false, { Error: `Can't get database` }, 500);
+            return;
+        }
+
+        var sku = req.params.sku || req.body.sku;
+
+        console.log(sku);
+
+        var products = json;
+        for ( var i = 0; i < products.length; i++ ) {
+            if ( sku === products[ i ].sku ) {
+                req.myApp.basket.addItem(products[ i ]);
+                return SimpleRes.sendSimpleResponse(req, res, true, products[ i ])
+            }
 
         }
 
 
-        var res = JSON.parse(body);
-        callback(res.products);
+        SimpleRes.sendSimpleResponse(req, res, false, { Error: `could not find article in database ${sku}` }, 404);
+
     })
 
 }
@@ -63,12 +70,12 @@ function emptyMyCart( req, res ) {
 function getItem( req, res ) {
     var sku = req.params.sku;
 
-    console.log("sku!!::::" , sku);
-    console.log("sku!!::::" , sku);
-    console.log("sku!!::::" , sku);
-    console.log("sku!!::::" , sku);
-    console.log("sku!!::::" , sku);
-    console.log("sku!!::::" , sku);
+    console.log("sku!!::::", sku);
+    console.log("sku!!::::", sku);
+    console.log("sku!!::::", sku);
+    console.log("sku!!::::", sku);
+    console.log("sku!!::::", sku);
+    console.log("sku!!::::", sku);
     var userBasket = Basket.getBasketFromId(req.query.key);
 
     if ( !userBasket ) {
@@ -166,7 +173,7 @@ function deleteItem( req, res ) {
  */
 
 function logger( req, res, next ) {
-    var key = req.query.key;
+    var key = req.query.key || req.body.key;
     var logString = `Method : ${req.method}, Key : ${req.query.key}, Path : BasketService/v1/Basket${req.path}, Date: ${new Date()}`;
     console.log(logString);
 

@@ -1,20 +1,32 @@
 var app = angular.module("myApp");
 
-app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactory', function ( $scope, $http, cart, userFactory ) {
+app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactory', 'Articles', function ( $scope, $http, cart, userFactory, Articles ) {
+
 
     var token = userFactory.getData('googleUser').token;
 
-    cart.getMyCart(token, function ( err,data ) {
-        console.log("error" + JSON.stringify(err));
-        console.log("data" + data);
-    });
+    $scope.items = Articles.query();
 
+    getMyItems(token, cart, function ( items ) {
+        $scope.myItems = items;
+    });
 
     $scope.addItem = function ( article ) {
         if ( !token ) {
             return Materialize.toast("You are not logged in, please login!");
         }
+        cart.addItem(article, token, function ( err, success ) {
+            if ( err ) {
+                console.log(err);
+                return
+            }
 
+            console.log(success);
+            getMyItems(token, cart, function ( items ) {
+                $scope.myItems = items;
+            });
+
+        })
 
     };
 
@@ -36,3 +48,14 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
 
 
 } ]);
+
+function getMyItems( token, cart, callback ) {
+    cart.getMyCart(token, function ( err, response ) {
+        if ( err ) {
+            Materialize.toast(err.data.Error);
+            return console.log(err);
+        }
+
+        callback(response.data.items);
+    });
+}
