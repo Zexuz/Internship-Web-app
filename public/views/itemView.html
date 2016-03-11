@@ -4,12 +4,12 @@
         <input type="text" placeholder="Search" ng-model="searchInput">
     </label>
 
-    <a class="btn red" ng-click="emptyMyCart()">Remove all items in my basket</a>
-    <h3>Items in my basket</h3>
+    <a class="btn red" ng-click="emptyMyCart()">Remove all items in my cart</a>
+    <h3>Items in my cart</h3>
 
     <div ng-repeat="item in myItems">
         <article>
-            <a href="" class="btn red lighten-3" ng-click="removeItem(item,false)">Remove item from basket</a>
+            <a href="" class="btn red lighten-3" ng-click="removeItem(item,false)">Remove item from cart</a>
             <span>Name </span>{{item.name}}
             <span>SKU </span>{{item.sku}}
             <span>Quantity </span>{{item.quant}}
@@ -21,7 +21,7 @@
     <h3>Items in database</h3>
     <div ng-repeat="item in items |filter:searchInput">
         <article>
-            <a href="" class="btn" ng-click="addItem(item)"> Add item to basket</a>
+            <a href="" class="btn" ng-click="addItem(item)"> Add item to cart</a>
             <span>Name </span>{{item.name}}
             <span>SKU </span>{{item.sku}}
         </article>

@@ -1,12 +1,12 @@
 var app = angular.module('myApp');
 
-app.factory('CartFactory', [ '$http', 'BasketService', function ( $http, apiUrl ) {
+app.factory('CartFactory', [ '$http', 'CartService', function ( $http, apiUrl ) {
 
-    var service = new BasketApi(apiUrl, $http);
+    var service = new CartApi(apiUrl, $http);
     var res = {};
 
     res.getMyCart = function ( key, callback ) {
-        service.getMyBasket(key, callback);
+        service.getMyCart(key, callback);
     };
 
     res.addItem = function ( item, key, callback ) {

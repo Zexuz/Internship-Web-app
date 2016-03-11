@@ -1,35 +1,35 @@
 "use strict";
 
-class BasketApi extends RestApi {
+class CartApi extends RestApi {
 
     constructor( url, $http ) {
         super(url, $http);
     }
 
 
-    getMyBasket( key, callback ) {
+    getMyCart( key, callback ) {
         this.sendGet("?key=" + key,
-            BasketApi._handelSuccess.bind(null, callback),
-            BasketApi._handelError.bind(null, callback))
+            CartApi._handelSuccess.bind(null, callback),
+            CartApi._handelError.bind(null, callback))
     }
 
 
     addItem( item, key, callback ) {
         this.sendPost("?key=" + key, { sku: item.sku },
-            BasketApi._handelSuccess.bind(null, callback),
-            BasketApi._handelError.bind(null, callback))
+            CartApi._handelSuccess.bind(null, callback),
+            CartApi._handelError.bind(null, callback))
     }
 
     emptyMyCart( key, callback ) {
         this.sendDel("?key=" + key,
-            BasketApi._handelSuccess.bind(null, callback),
-            BasketApi._handelError.bind(null, callback));
+            CartApi._handelSuccess.bind(null, callback),
+            CartApi._handelError.bind(null, callback));
     }
 
     removeItem( item, key, callback ) {
         this.sendDel("/" + item.sku, { key: key },
-            BasketApi._handelSuccess.bind(null, callback),
-            BasketApi._handelError.bind(null, callback))
+            CartApi._handelSuccess.bind(null, callback),
+            CartApi._handelError.bind(null, callback))
     }
 
     static _handelSuccess( callback, data ) {

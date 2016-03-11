@@ -1,7 +1,7 @@
 "use strict";
 var request = require('request');
 var SimpleResponse = require('../lib/SimpleResponse');
-var ShoppingBasket = require('../lib/Basket');
+var ShoppingCart = require('../lib/Cart');
 
 var express = require('express');
 var router = express.Router();
@@ -18,8 +18,8 @@ router.post('/login', function ( req, res ) {
             return;
         }
 
-        if (!ShoppingBasket.getBasketFromId(token) ){
-            __baskets.push(new ShoppingBasket(token));
+        if (!ShoppingCart.getCartFromId(token) ){
+            __carts.push(new ShoppingCart(token));
         }
 
         SimpleResponse.sendSimpleResponse(req, res, true, data);
