@@ -33,7 +33,7 @@ class BasketApi extends RestApi {
     }
 
     static _handelSuccess( callback, data ) {
-        callback(null, data.data);
+        callback(null, data.data.data);
     }
 
     static _handelError( callback, data ) {
