@@ -9,9 +9,9 @@ var debug = require('debug')('REST:server');
 var http = require('http');
 
 /**
- * Make all the baskets global
+ * Make all the carts global
  */
-global.__baskets = [];
+global.__carts = [];
 
 /**
  * Get port from environment and store in Express.

@@ -13,9 +13,8 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
     });
 
     $scope.addItem = function ( article ) {
-        if ( !token ) {
-            return Materialize.toast("You are not logged in, please login!");
-        }
+        if ( !token ) return Materialize.toast("You are not logged in, please login!");
+
         cart.addItem(article, token, function ( err, updatedCart ) {
             if ( err ) {
                 return showError(err);
@@ -27,9 +26,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
 
 
     $scope.removeItem = function ( item ) {
-        if ( !token ) {
-            return Materialize.toast("You are not logged in, please login!");
-        }
+        if ( !token ) return Materialize.toast("You are not logged in, please login!");
 
         cart.removeItem(item, token, function ( err, updatedCart ) {
             if ( err ) {
@@ -44,10 +41,8 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
     };
 
 
-    $scope.getMyBasket = function () {
-        if ( !token ) {
-            return Materialize.toast("You are not logged in, please login!");
-        }
+    $scope.getMyCart = function () {
+        if ( !token ) return Materialize.toast("You are not logged in, please login!");
 
         getMyItems(token, cart, function ( items ) {
             $scope.myItems = items;
@@ -56,15 +51,10 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
 
 
     $scope.emptyMyCart = function () {
-        if ( !token ) {
-            return Materialize.toast("You are not logged in, please login!");
-        }
-
+        if ( !token ) return Materialize.toast("You are not logged in, please login!");
 
         cart.emptyMyCart(token, function ( err, updatedCart ) {
-            if ( err ) {
-                return showError(err);
-            }
+            if ( !token ) return Materialize.toast("You are not logged in, please login!");
 
             $scope.myItems = updatedCart.items;
         });
@@ -79,11 +69,9 @@ function showError( err ) {
 }
 
 function getMyItems( token, cart, callback ) {
-    cart.getMyCart(token, function ( err, response ) {
-        if ( err ) {
-            return showError(err);
-        }
+    cart.getMyCart(token, function ( err, updatedCart ) {
+        if ( err ) return showError(err);
 
-        callback(response.data.items);
+        callback(updatedCart.items);
     });
 }
