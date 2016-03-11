@@ -1,5 +1,14 @@
 "use strict";
 
+/**
+ *
+ * Used to interact with the CartService/v1
+ *
+ * We return errors like this {success:boolean, data:object} callback(apiResponse)
+ * and return success like this {object} callback(apiResponse.data)
+ *
+ */
+
 class CartApi extends RestApi {
 
     constructor( url, $http ) {
