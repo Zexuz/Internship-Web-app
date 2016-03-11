@@ -42,7 +42,7 @@ function addItem( req, res ) {
         for ( var i = 0; i < products.length; i++ ) {
             if ( sku === products[ i ].sku ) {
                 req.myApp.basket.addItem(products[ i ]);
-                return SimpleRes.sendSimpleResponse(req, res, true, products[ i ])
+                return SimpleRes.sendSimpleResponse(req, res, true, req.myApp.basket.toJson());
             }
 
         }
@@ -55,37 +55,17 @@ function addItem( req, res ) {
 }
 
 function emptyMyCart( req, res ) {
-    var userBasket = Basket.getBasketFromId(req.query.key);
 
-    if ( !userBasket ) {
-        res.status(404).json({ Error: `could not fetch basket associated with this key ${req.query.key}` });
-        return;
-    }
-    userBasket.empty();
-
-    SimpleRes.sendSimpleResponse(req, res, true, true, 200);
-
+    req.myApp.basket.empty();
+    SimpleRes.sendSimpleResponse(req, res, true, req.myApp.basket.toJson());
 }
 
 function getItem( req, res ) {
     var sku = req.params.sku;
 
-    console.log("sku!!::::", sku);
-    console.log("sku!!::::", sku);
-    console.log("sku!!::::", sku);
-    console.log("sku!!::::", sku);
-    console.log("sku!!::::", sku);
-    console.log("sku!!::::", sku);
-    var userBasket = Basket.getBasketFromId(req.query.key);
-
-    if ( !userBasket ) {
-        res.status(404).json({ Error: `could not fetch basket associated with this key ${req.query.key}` });
-        return;
-    }
-
-    var index = userBasket.indexOfItem(sku);
+    var index = req.myApp.basket.indexOfItem(sku);
     if ( index > -1 ) {
-        SimpleRes.sendSimpleResponse(req, res, true, userBasket.items[ index ]);
+        SimpleRes.sendSimpleResponse(req, res, true, req.myApp.basket.toJson());
         return;
     }
 
@@ -95,83 +75,16 @@ function getItem( req, res ) {
 function deleteItem( req, res ) {
     var sku = req.params.sku;
 
-    var basket = Basket.getBasketFromId(req.query.key);
 
-    var index = basket.indexOfItem({ sku: parseInt(sku) });
+    var index =  req.myApp.basket.indexOfItem({ sku: parseInt(sku) });
     if ( index === -1 ) {
         SimpleRes.sendSimpleResponse(req, res, false, { Error: 'Item not in basket' }, 404);
         return;
     }
 
-    basket.removeItem(basket.items[ index ]);
-    SimpleRes.sendSimpleResponse(req, res, true, basket.items[ index ]);
-
+    req.myApp.basket.removeItem( req.myApp.basket.items[ index ]);
+    SimpleRes.sendSimpleResponse(req, res, true, req.myApp.basket.toJson());
 }
-
-/*
- Code for controlling the inventory
-
- Basket.getItems(function ( items ) {
-
- var foundItem = false;
- for ( var i = 0; i < items.length; i++ ) {
- if ( req.params.sku === items[ i ].sku + "" ) { // convert this to a string
- foundItem = true;
- break;
- }
- }
-
- if ( !foundItem ) {
- SimpleRes.sendSimpleResponse(req, res, false, { Error: `No item in database with that SKU ${req.params.sku}` }, 404);
- return;
- }
-
- if ( !userBasket.addItem(items[ i ]) ) {
- SimpleRes.sendSimpleResponse(req, res, false, { Error: "Can't add item(s) to basket!" }, 500);
- return;
- }
-
- var basket = {
- id: userBasket.basketId,
- items: userBasket.items
- };
-
-
- SimpleRes.sendSimpleResponse(req, res, true, basket);
- });
-
-
- */
-
-/*
- getItemsFromDataBase(function ( err, items ) {
- if ( err ) {
- SimpleRes.sendSimpleResponse(req, res, false, err, 500);
- return;
- }
-
- for ( var i = 0; i < items.length; i++ ) {
- if ( items[ i ].sku == req.params.sku ) {
- return SimpleRes.sendSimpleResponse(req, res, true, items[ i ]);
- }
- }
-
- SimpleRes.sendSimpleResponse(req, res, false, { Error: 'No such item with ' + `${req.params.sku}` }, 404);
-
- });
-
-
- function getItemsFromDataBase( callback ) {
- request('http://localhost:3000/ItemService/v1/Items', function ( error, response, body ) {
- if ( !error && response.statusCode == 200 ) {
- callback(null, JSON.parse(body));
- return;
- }
-
- callback(error ? error : response.statusCode, null);
- })
- }
- */
 
 function logger( req, res, next ) {
     var key = req.query.key || req.body.key;
