@@ -4,6 +4,8 @@ My Internship task
 
 Port: 3000
 
+To make the debug work add this to your envoriment vars **"DEBUG=REST:*"**
+
 ##Api
 
 localhost/\<service>/\<version>/\<path>
