@@ -11,15 +11,15 @@ localhost/\<service>/\<version>/\<path>
 All data is returned with a statuscode (200 for success) and in the format **{success:boolean,data:object}**
 
 
-###BasketService/v1
-####GET /Basket
-  Returns my basket
+###CartService/v1
+####GET /Cart
+  Returns my cart
 
-####POST /Basket
-  Adds a item in my basket
+####POST /Cart
+  Adds a item in my cart
   
-####DELETE /Basket
-  Emptyies my basket
+####DELETE /Cart
+  Emptyies my cart
   
 ###ItemService/v1
 ####GET /Items
@@ -27,7 +27,7 @@ All data is returned with a statuscode (200 for success) and in the format **{su
   
  
 ###UserService/v1
-####POST /User/loginn
+####POST /User/login
   Requiers a token from google sign in
   
   Can be a query string or json body
