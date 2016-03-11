@@ -9,12 +9,16 @@ app.factory('CartFactory', [ '$http', 'BasketService', function ( $http, apiUrl 
         service.getMyBasket(key, callback);
     };
 
-    res.addItem = function ( key, item, callback ) {
-        service.addItem(key, item, callback);
+    res.addItem = function ( item, key, callback ) {
+        service.addItem(item, key, callback);
     };
 
     res.emptyMyCart = function ( key, callback ) {
         service.emptyMyCart(key, callback)
+    };
+
+    res.removeItem = function ( item, key, callback ) {
+        service.removeItem(item, key, callback)
     };
 
 

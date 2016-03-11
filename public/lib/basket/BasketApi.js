@@ -21,19 +21,13 @@ class BasketApi extends RestApi {
     }
 
     emptyMyCart( key, callback ) {
-        this.sendDel("?key=" + key, function success( data ) {
-            console.log("Success");
-            callback(null,data.data);
-        }, function fail( data ) {
-            console.log(data);
-            console.log("Fail");
-            callback(data.data);
-        });
-
+        this.sendDel("?key=" + key,
+            BasketApi._handelSuccess.bind(null, callback),
+            BasketApi._handelError.bind(null, callback));
     }
 
-    removeItem( sku, key, callback ) {
-        this.sendDel("?key=" + key, { sku: sku },
+    removeItem( item, key, callback ) {
+        this.sendDel("/" + item.sku, { key: key },
             BasketApi._handelSuccess.bind(null, callback),
             BasketApi._handelError.bind(null, callback))
     }
@@ -43,8 +37,13 @@ class BasketApi extends RestApi {
     }
 
     static _handelError( callback, data ) {
-        console.log("fail");
-        console.log(data);
+
+        if ( data.data.success ) {
+            console.log("false positive");
+            console.log(data);
+            return callback(null, data.data);
+        }
+
         callback(data.data);
     }
 

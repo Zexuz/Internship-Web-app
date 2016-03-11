@@ -38,8 +38,6 @@ function addItem( req, res ) {
 
         var sku = req.params.sku || req.body.sku;
 
-        console.log(sku);
-
         var products = json;
         for ( var i = 0; i < products.length; i++ ) {
             if ( sku === products[ i ].sku ) {
@@ -65,7 +63,7 @@ function emptyMyCart( req, res ) {
     }
     userBasket.empty();
 
-    SimpleRes.sendSimpleResponse(req, res, true, {Hello:"world"});
+    SimpleRes.sendSimpleResponse(req, res, true, true, 200);
 
 }
 
@@ -99,14 +97,15 @@ function deleteItem( req, res ) {
 
     var basket = Basket.getBasketFromId(req.query.key);
 
-    var index = basket.indexOfItem(sku);
-    if ( index > -1 ) {
-        basket.removeItem(basket.items[ index ]);
-        SimpleRes.sendSimpleResponse(req, res, true, basket.items[ index ]);
+    var index = basket.indexOfItem({ sku: parseInt(sku) });
+    if ( index === -1 ) {
+        SimpleRes.sendSimpleResponse(req, res, false, { Error: 'Item not in basket' }, 404);
         return;
     }
 
-    SimpleRes.sendSimpleResponse(req, res, false, { Error: 'Item not in basket' }, 404);
+    basket.removeItem(basket.items[ index ]);
+    SimpleRes.sendSimpleResponse(req, res, true, basket.items[ index ]);
+
 }
 
 /*

@@ -35,6 +35,19 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
             return Materialize.toast("You are not logged in, please login!");
         }
 
+        cart.removeItem(item, token, function ( err, success ) {
+            if ( err ) {
+                console.log(err);
+                return;
+            }
+
+            getMyItems(token, cart, function ( items ) {
+                $scope.myItems = items;
+            });
+
+
+        });
+
 
     };
 
@@ -44,7 +57,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
         }
 
 
-    }
+    };
 
     $scope.emptyMyCart = function () {
         if ( !token ) {
@@ -68,6 +81,10 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
 
 
 } ]);
+
+function setMyItems() {
+
+}
 
 function getMyItems( token, cart, callback ) {
     cart.getMyCart(token, function ( err, response ) {
