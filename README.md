@@ -11,7 +11,7 @@ My Internship task
   
   ``$ bower install``
   
- `` $cd ..``
+ `` $ cd ..``
   
  `` $ npm start``
   
