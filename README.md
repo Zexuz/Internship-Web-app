@@ -2,9 +2,22 @@
 My Internship task
 
 
-Port: 3000
+##Install
+  ``$ git clone <repop>``
+  
+ `` $ npm install``
+  
+  ``$ cd public``
+  
+  ``$ bower install``
+  
+ `` $cd ..``
+  
+ `` $ npm start``
+  
+  It should now run on port 3000
 
-To make the debug work add this to your envoriment vars **"DEBUG=REST:*"**
+To make the debug output work add this to your envoriment vars **"DEBUG=REST:*"**
 
 ##Api
 
