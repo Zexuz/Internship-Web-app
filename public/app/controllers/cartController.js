@@ -64,8 +64,8 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 } ]);
 
 function showError( err ) {
-    Materialize.toast(err.data.Error);
-    console.warn(err.data.Error);
+    Materialize.toast(err.Error);
+    console.warn(err.Error);
 }
 
 function getMyItems( token, cart, callback ) {
