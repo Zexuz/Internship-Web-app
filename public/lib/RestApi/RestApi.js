@@ -1,37 +1,49 @@
 "use strict";
 
+
+
 class RestApi {
 
 
-    constructor( url, $http ) {
+    constructor(url, $http) {
         this._url = url;
         this.$http = $http;
     }
 
-    sendPost( path, data, sc, ec ) {
+    sendPost(path, qs, data, sc, ec) {
         this._makeRequest({
             method: "POST",
             url: this.url + path,
+            params: qs,
             data: data
         }, sc, ec);
     }
 
-    sendGet( path, sc, ec ) {
+    sendGet(path, qs, sc, ec) {
         this._makeRequest({
             method: "GET",
-            url: this.url + path
+            url: this.url + path,
+            params: qs
         }, sc, ec);
     }
 
-    sendDel( path, params, sc, ec ) {
+    sendDel(path, qs, sc, ec) {
+
         this._makeRequest({
             method: "delete",
             url: this.url + path,
-            params: params
+            params: qs
         }, sc, ec);
     }
 
-    _makeRequest( options, successCallback, errorCallback ) {
+    /**
+     *
+     * @param options - Has a Method, path, query string, [POST DATA]
+     * @param successCallback
+     * @param errorCallback
+     * @private
+     */
+    _makeRequest(options, successCallback, errorCallback) {
         this.$http(options).then(successCallback, errorCallback);
     }
 

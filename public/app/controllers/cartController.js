@@ -1,9 +1,9 @@
 var app = angular.module("myApp");
 
-app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactory', 'Articles', function ( $scope, $http, cart, userFactory, Articles ) {
+app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactory', 'Articles', function ( $scope, $http, cart, userFactory, Articles ) {
 
     //get the token aka user id
-    var token = userFactory.getData('googleUser').token;
+    var token = userFactory.getUserInfo().token;
 
     //set the article
     $scope.items = Articles.query();
@@ -64,8 +64,8 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'userFactor
 } ]);
 
 function showError( err ) {
-    Materialize.toast(err.data.Error);
-    console.warn(err.data.Error);
+    Materialize.toast(err.Error);
+    console.warn(err.Error);
 }
 
 function getMyItems( token, cart, callback ) {

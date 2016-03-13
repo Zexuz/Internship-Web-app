@@ -1,15 +1,15 @@
 <div class="container">
 
     <label>
-        <input type="text" placeholder="Search" ng-model="searchInput">
+        <input type="text" placeholder="Search" data-ng-model="searchInput">
     </label>
 
-    <a class="btn red" ng-click="emptyMyCart()">Remove all items in my cart</a>
+    <a class="btn red" data-ng-click="emptyMyCart()">Remove all items in my cart</a>
     <h3>Items in my cart</h3>
 
-    <div ng-repeat="item in myItems">
+    <div data-ng-repeat="item in myItems">
         <article>
-            <a href="" class="btn red lighten-3" ng-click="removeItem(item,false)">Remove item from cart</a>
+            <a href="" class="btn red lighten-3" data-ng-click="removeItem(item,false)">Remove item from cart</a>
             <span>Name </span>{{item.name}}
             <span>SKU </span>{{item.sku}}
             <span>Quantity </span>{{item.quant}}
@@ -20,9 +20,9 @@
     <hr>
 
     <h3>Items in database</h3>
-    <div ng-repeat="item in items |filter:searchInput">
+    <div data-ng-repeat="item in items |filter:searchInput">
         <article>
-            <a href="" class="btn" ng-click="addItem(item)"> Add item to cart</a>
+            <a href="" class="btn" data-ng-click="addItem(item)"> Add item to cart</a>
             <span>Name </span>{{item.name}}
             <span>SKU </span>{{item.sku}}
             <span>Price </span>{{item.salePrice}}
