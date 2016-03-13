@@ -1,14 +1,14 @@
-
-<div class="centered">
+<div class="centered container">
 
     <p>Seller: John Doe</p>
     <p>Time: {{receipt.date}}</p>
     <hr>
     <div data-ng-repeat="item in receipt.items">
-        {{item.html}}
+        <span style="left: 0">{{item.name}}</span>
+        <span style="right: 0; position: absolute">{{item.salePrice}} * {{item.quant}}st: <strong>{{item.totalPrice}}</strong> </span>
     </div>
 
     <hr>
-    <span>Total: </span><strong>{{receipt.totalPrice}}</strong>
+    <span>Total: </span><strong style="right: 0; position: absolute">{{receipt.totalPrice}}</strong>
 
 </div>
