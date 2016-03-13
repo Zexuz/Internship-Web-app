@@ -1,11 +1,11 @@
 var app = angular.module('myApp');
 
 
-app.controller('loginController', [ '$scope', 'userFactory', '$http', function ( $scope, loginC, $http ) {
+app.controller('loginController', ['$scope', 'UserFactory', '$http', function ($scope, userFactory, $http) {
 
-    var googleUser = loginC.getData("googleUser");
+    var googleUser = userFactory.getUserInfo();
 
-    if ( googleUser.token ) {
+    if (googleUser.token) {
         $scope.status = "You are logged as :" + googleUser.name;
     } else {
         $scope.status = "Not logged in!";
@@ -23,7 +23,7 @@ app.controller('loginController', [ '$scope', 'userFactory', '$http', function (
         var GoogleAuth = gapi.auth2.getAuthInstance();//get's a GoogleAuth instance with your client-id, needs to be called after gapi.auth2.init
         //add a function to the controller so ng-click can bind to it
 
-        GoogleAuth.signIn().then(function ( googleUser ) {//request to sign in
+        GoogleAuth.signIn().then(function (googleUser) {//request to sign in
             var profile = googleUser.getBasicProfile();
             console.log('Name : ' + profile.getName());
             console.log('Email: ' + profile.getEmail());
@@ -34,13 +34,13 @@ app.controller('loginController', [ '$scope', 'userFactory', '$http', function (
                 name: profile.getName(),
                 email: profile.getEmail()
             };
-            loginC.saveData("googleUser", user);
+            userFactory.saveUserInfo(user);
             $scope.status = "Got key from google, checking key...";
 
             window.prompt("Copy to clipboard: Ctrl+C, Enter", id_token);
-            $scope.isTokenValid(function ( err, loggedIn ) {
+            $scope.isTokenValid(function (err, loggedIn) {
 
-                if ( loggedIn ) {
+                if (loggedIn) {
                     $scope.status = "You are now logged in as " + profile.getName();
                     return;
                 }
@@ -55,25 +55,35 @@ app.controller('loginController', [ '$scope', 'userFactory', '$http', function (
         var auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('User signed out.');
-        });
-    }
+            userFactory.deleteUserInfo();
+            var googleUser = userFactory.getUserInfo();
 
-    $scope.isTokenValid = function ( callback ) {
-        var user_token = loginC.getData("googleUser").token;
+            if (googleUser.token) {
+                $scope.status = "You are logged as :" + googleUser.name;
+            } else {
+                $scope.status = "Not logged in!";
+            }
+
+            $scope.$apply();
+        });
+    };
+
+    $scope.isTokenValid = function (callback) {
+        var user_token = userFactory.getUserInfo().token;
         $http({
             method: "post",
             url: "http://localhost:3000/UserService/v1/User/login",
-            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            headers: {'Content-Type': 'application/x-www-form-urlencoded'},
             data: "token=" + user_token
-        }).then(function successCallback( response ) {
-            if ( response.data.success === true ) {
+        }).then(function successCallback(response) {
+            if (response.data.success === true) {
                 return callback(null, true);
             }
             callback(true, null);
 
-        }, function errorCallback( response ) {
+        }, function errorCallback(response) {
             callback(true, null);
         });
     };
 
-} ]);
+}]);
