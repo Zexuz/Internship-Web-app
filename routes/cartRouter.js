@@ -5,6 +5,7 @@ var express = require('express');
 var router = express.Router();
 
 var Cart = require('../lib/Cart');
+var Receipt = require('../lib/Receipt');
 var SimpleRes = require('../lib/SimpleResponse');
 
 router.use(logger);
@@ -12,8 +13,10 @@ router.use(logger);
 router.get('/', getMyCart);
 router.post('/', addItem);
 router.delete('/', emptyMyCart);
-router.get('/:sku', getItem);
 router.delete('/:sku', deleteItem);
+
+
+router.get('/Receipt', getMyReceipt);
 
 function getMyCart(req, res) {
     SimpleRes.sendSuccess(req, res, req.myApp.cart.toJson());
@@ -60,18 +63,6 @@ function emptyMyCart(req, res) {
     SimpleRes.sendSuccess(req, res, req.myApp.cart.toJson());
 }
 
-function getItem(req, res) {
-    var sku = req.params.sku;
-
-    var index = req.myApp.cart.indexOfItem(sku);
-    if (index > -1) {
-        SimpleRes.sendSuccess(req, res, req.myApp.cart.toJson());
-        return;
-    }
-
-    SimpleRes.sendError(req, res, {Error: 'Item not in cart'}, 404);
-}
-
 function deleteItem(req, res) {
     var sku = req.params.sku;
 
@@ -84,6 +75,17 @@ function deleteItem(req, res) {
 
     req.myApp.cart.removeItem(req.myApp.cart.items[index]);
     SimpleRes.sendSuccess(req, res, req.myApp.cart.toJson());
+}
+
+function getMyReceipt(req, res) {
+    var receipt = new Receipt({cart:req.myApp.cart}).getReceipt();
+
+
+    if (receipt.Error) {
+        return SimpleRes.sendError(req, res, receipt, 404);
+    }
+
+    SimpleRes.sendSuccess(req, res, receipt);
 }
 
 function logger(req, res, next) {
