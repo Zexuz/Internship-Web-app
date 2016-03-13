@@ -36,6 +36,7 @@ app.factory('UserFactory', function () {
         localStorage.removeItem('token');
         localStorage.removeItem('name');
         localStorage.removeItem('email');
+        delete savedData[userSaveIndex];
     };
 
 

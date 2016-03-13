@@ -3,7 +3,7 @@ var app = angular.module("myApp");
 app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactory', 'Articles', function ( $scope, $http, cart, userFactory, Articles ) {
 
     //get the token aka user id
-    var token = userFactory.getData(userFactory.userSaveIndex).token;
+    var token = userFactory.getUserInfo().token;
 
     //set the article
     $scope.items = Articles.query();
