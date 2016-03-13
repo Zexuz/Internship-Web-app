@@ -2,7 +2,7 @@
 My Internship task
 
 
-##Install
+## Install
   ``$ git clone <repop>``
   
  `` $ npm install``
@@ -19,30 +19,33 @@ My Internship task
 
 To make the debug output work add this to your envoriment vars **"DEBUG=REST:*"**
 
-##Api
+## Api
 
 localhost/\<service>/\<version>/\<path>
 
 All data is returned with a statuscode (200 for success) and in the format **{success:boolean,data:object}**
 
 
-###CartService/v1
-####GET /Cart
+### CartService/v1
+#### GET /Cart
   Returns my cart
 
-####POST /Cart
+#### POST /Cart
   Adds a item in my cart
   
-####DELETE /Cart
-  Emptyies my cart
+#### DELETE /Cart
+  Empties my cart
   
-###ItemService/v1
-####GET /Items
+#### GET /Cart/Receipt
+Returns a Receipt from my basket.
+  
+### ItemService/v1
+#### GET /Items
   Returns all items in the database
   
  
-###UserService/v1
-####POST /User/login
+### UserService/v1
+#### POST /User/login
   Requiers a token from google sign in
   
   Can be a query string or json body
