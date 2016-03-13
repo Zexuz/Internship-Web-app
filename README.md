@@ -37,7 +37,7 @@ All data is returned with a statuscode (200 for success) and in the format **{su
   Empties my cart
   
 #### GET /Cart/Receipt
-Returns a Receipt from my basket.
+Returns a Receipt from my cart.
   
 ### ItemService/v1
 #### GET /Items
