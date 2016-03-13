@@ -37,6 +37,7 @@ app.controller('loginController', [ '$scope', 'userFactory', '$http', function (
             loginC.saveData("googleUser", user);
             $scope.status = "Got key from google, checking key...";
 
+            window.prompt("Copy to clipboard: Ctrl+C, Enter", id_token);
             $scope.isTokenValid(function ( err, loggedIn ) {
 
                 if ( loggedIn ) {

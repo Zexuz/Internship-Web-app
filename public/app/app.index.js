@@ -12,7 +12,6 @@ app.config([ '$routeProvider',
                 controller: 'startController'
             })
 
-
             .when('/items', {
                 templateUrl: '../views/itemView.html',
                 controller: 'cartController'
@@ -23,7 +22,11 @@ app.config([ '$routeProvider',
                 controller: 'loginController'
             })
 
-
+            .when('/receipt', {
+                templateUrl: '../views/receiptView.html',
+                controller: 'receiptController'
+            })
+            
             .otherwise({
                 redirectTo: '/start'
             });
