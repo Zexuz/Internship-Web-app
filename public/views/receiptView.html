@@ -5,7 +5,10 @@
     <hr>
     <div data-ng-repeat="item in receipt.items">
         <span style="left: 0">{{item.name}}</span>
-        <span style="right: 0; position: absolute">{{item.salePrice}} * {{item.quant}}st: <strong>{{item.totalPrice}}</strong> </span>
+        <span style="right: 0;position: absolute; width: 300px">
+            <span style="left: 0;position: absolute"> {{item.salePrice}} * {{item.quant}}st</span>
+            <strong style="right: 0;position: absolute">{{item.totalPrice}}</strong>
+        </span>
     </div>
 
     <hr>
