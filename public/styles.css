@@ -7,3 +7,27 @@
     transform: translate(-50%, -50%);
 }
 
+div.itemImage{
+    padding-top: 10px;
+    height: 200px;
+}
+
+div.card-content {
+    line-height: 1.5em;
+    height: 6em;
+    overflow: hidden;
+}
+
+article.item{
+    padding-bottom: 30px;
+    margin-bottom: 100px;
+}
+
+
+img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    max-height: 100%;
+}

@@ -7,6 +7,11 @@
     <a class="btn red" data-ng-click="emptyMyCart()">Remove all items in my cart</a>
     <h3>Items in my cart</h3>
 
+    <a class="btn"data-ng-click="initCollapsible()">Test</a>
+
+
+
+
     <div data-ng-repeat="item in myItems">
         <article>
             <a href="" class="btn red lighten-3" data-ng-click="removeItem(item,false)">Remove item from cart</a>
@@ -20,13 +25,30 @@
     <hr>
 
     <h3>Items in database</h3>
-    <div data-ng-repeat="item in items |filter:searchInput">
-        <article>
-            <a href="" class="btn" data-ng-click="addItem(item)"> Add item to cart</a>
-            <span>Name </span>{{item.name}}
-            <span>SKU </span>{{item.sku}}
-            <span>Price </span>{{item.salePrice}}
+    <div class="row">
 
-        </article>
+        <div data-ng-repeat="item in items |filter:searchInput" class="col s3">
+
+            <div class="card">
+                <div class="itemImage">
+                    <img src="{{item.mediumImage}}" alt="{{item.name}}"
+                         onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png'"/>
+                </div>
+                <div class="card-content">
+                    <p>{{item.shortName}}</p>
+                </div>
+                <div class="card-action">
+                    <a href="#">Add to cart</a>
+                    <ul class="collapsible popout" data-collapsible="accordion">
+                        <li>
+                            <div class="collapsible-header">More info</div>
+                            <div class="collapsible-body"><p>Halsdölaföljlkdfjk ldaflkjsdalkflk sjadlkflkajsdflk slkajdfkl jalsdflk asdf</p></div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
     </div>
 </div>
+

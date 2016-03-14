@@ -60,6 +60,15 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
         });
     }
 
+    $scope.initCollapsible = function () {
+        $(document).ready(function () {
+            $('.collapsible').collapsible({
+                accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+            });
+            console.log("done");
+        });
+    }
+
 
 } ]);
 
