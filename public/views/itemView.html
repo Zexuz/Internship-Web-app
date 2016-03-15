@@ -21,24 +21,41 @@
     </div>
 
     <hr>
+    <!-- Modal Structure END -->
 
     <h3>Items in database</h3>
     <div class="row">
 
         <div data-ng-repeat="item in items |filter:searchInput" class="col s12 m6 l3">
 
-
+            <!-- Item Structure -->
             <div class="card">
-                <div class="itemImage">
-                    <img src="{{item.mediumImage}}" alt="{{item.name}}"
-                         onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png'"/>
-                </div>
+                <a class="modal-trigger" data-target="{{item.sku}}modal">
+                    <div class="itemImage">
+                        <img src="{{item.mediumImage}}" alt="{{item.name}}"
+                             onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png'"/>
+                    </div>
+                </a>
                 <div class="card-content">
                     <p>{{item.shortName}}</p>
                 </div>
                 <div class="card-action">
                     <a href="#">Add to cart</a>
                     <a href="#" class="show-more-info">More info</a>
+                </div>
+            </div>
+
+            <!-- Modal Structure -->
+            <div id="{{item.sku}}modal" class="modal">
+                <div class="modal-content">
+                    <h4>{{item.name}}</h4>
+                    <img src="{{item.mediumImage}}" alt="{{item.name}}"
+                         onerror="this.src='https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/No_image_available.svg/300px-No_image_available.svg.png'"/>
+                    <p>{{item.name}}</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="" class="modal-close waves-effect waves-green btn-flat">Add to cart</a>
+                    <a href="" onclick="$('#modal1').closeModal();" class="modal-close waves-effect waves-green btn-flat">Close</a>
                 </div>
             </div>
 
