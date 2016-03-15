@@ -6,6 +6,13 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
     //get the token aka user id
     var token = userFactory.getUserInfo().token;
 
+    //set the article
+    $scope.items = Articles.query();
+
+    getMyItems(token, cart, function ( items ) {
+        $scope.myItems = items;
+    });
+
     $scope.addItem = function ( article ) {
         if ( !token ) Toast.showError(strNotLoggedIn);
 
@@ -48,7 +55,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
             $scope.myItems = updatedCart.items;
         });
-    };
+    }
 
     $scope.initCollapsible = function () {
         $(document).ready(function () {
@@ -72,23 +79,35 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
         $('.modal-trigger').leanModal();
     });
 
-    $scope.initCollapsible = function () {
-        $(document).ready(function () {
-            $('.collapsible').collapsible({
-                accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+        setTimeout(function () {
+
+            $(document).ready(function () {
+                $('.collapsible').collapsible({
+                    accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+                });
+
+                $('.modal-trigger').leanModal();
+
+                console.log("done");
             });
+        },1000);
 
-            $('.modal-trigger').leanModal();
+        console.log("Asdasdasdasdasd");
+    });
 
-            console.log("done");
-        });
-    }
+    $scope.initCollapsible = function () {
+
+    };
 
     $scope.initCollapsible();
 
 
 } ]);
 
+function showError( err ) {
+    Materialize.toast(err.Error);
+    console.warn(err.Error);
+}
 
 function getMyItems( token, Toast, cart, callback ) {
     cart.getMyCart(token, function ( err, updatedCart ) {
