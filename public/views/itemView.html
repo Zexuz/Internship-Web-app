@@ -40,8 +40,8 @@
                     <p>{{item.shortName}}</p>
                 </div>
                 <div class="card-action">
-                    <a href="#">Add to cart</a>
-                    <a href="#" class="show-more-info">More info</a>
+                    <a href="" ng-click="addItem(item)">Add to cart</a>
+                    <a href="" class="show-more-info modal-trigger" data-target="{{item.sku}}modal">More info</a>
                 </div>
             </div>
 
@@ -54,8 +54,8 @@
                     <p>{{item.name}}</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="" class="modal-close waves-effect waves-green btn-flat">Add to cart</a>
-                    <a href="" onclick="$('#modal1').closeModal();" class="modal-close waves-effect waves-green btn-flat">Close</a>
+                    <a href="" class="modal-close waves-effect waves-green btn-flat" ng-click="addItem(item)">Add to cart</a>
+                    <a href="" class="modal-close waves-effect waves-green btn-flat">Close</a>
                 </div>
             </div>
 
