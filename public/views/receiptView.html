@@ -7,11 +7,23 @@
         <span style="left: 0">{{item.name}}</span>
         <span style="right: 0;position: absolute; width: 300px">
             <span style="left: 0;position: absolute"> {{item.salePrice}} * {{item.quant}}st</span>
+            <span> {{item.VAT}}%</span>
             <strong style="right: 0;position: absolute">{{item.totalPrice}}</strong>
         </span>
     </div>
 
     <hr>
-    <span>Total: </span><strong style="right: 0; position: absolute">{{receipt.totalPrice}}</strong>
+
+    <div>
+        <span>Total: </span><strong style="right: 0; position: absolute">{{receipt.totalPrice}}</strong>
+    </div>
+
+    <div>
+        <span>VAT %: </span><strong style="right: 0; position: absolute">{{receipt.totalVat.percent}}</strong>
+    </div>
+
+    <div>
+        <span>VAT : </span><strong style="right: 0; position: absolute">{{receipt.totalVat.money}}</strong>
+    </div>
 
 </div>
