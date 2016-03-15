@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 
 var Items = require('../lib/Items');
+var SimpleRes = require('../lib/SimpleResponse');
+
 var VAT = require('../resources/VAT');
 
 var savedItems = null;
@@ -21,10 +23,10 @@ router.get('/', function ( req, res ) {
             }
 
             savedItems = items;
-            res.json(savedItems);
+            SimpleRes.sendSuccess(req, res, savedItems);
         });
     else {
-        res.json(savedItems);
+        SimpleRes.sendSuccess(req, res, savedItems);
     }
 });
 

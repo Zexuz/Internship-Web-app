@@ -64,13 +64,12 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
     $scope.getMyCart();
 
     //set the article
-    articles.getAllArticles(function ( err, data ) {
+    articles.getAllArticles(token, function ( err, data ) {
         if ( err ) return Toast.showError(err);
 
         $scope.items = data;
         //init all the modals after we fetched articles
         $('.modal-trigger').leanModal();
-    });
 
         setTimeout(function () {
 
@@ -83,7 +82,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
                 console.log("done");
             });
-        },1000);
+        }, 1000);
 
         console.log("Asdasdasdasdasd");
     });
@@ -96,7 +95,6 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
 
 } ]);
-
 
 function getMyItems( token, Toast, cart, callback ) {
     cart.getMyCart(token, function ( err, updatedCart ) {
