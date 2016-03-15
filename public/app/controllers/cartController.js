@@ -68,30 +68,15 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
         if ( err ) return Toast.showError(err);
 
         $scope.items = data;
-        //init all the modals after we fetched articles
-        $('.modal-trigger').leanModal();
 
-        setTimeout(function () {
-
-            $(document).ready(function () {
-                $('.collapsible').collapsible({
-                    accordion: false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-                });
-
-                $('.modal-trigger').leanModal();
-
-                console.log("done");
-            });
-        }, 1000);
-
-        console.log("Asdasdasdasdasd");
     });
 
-    $scope.initCollapsible = function () {
+    $scope.openModal = function (id) {
+        Toast.showMessage("Loding $");
+        $('.modal-trigger').leanModal();
 
+        $('#'+id).openModal();
     };
-
-    $scope.initCollapsible();
 
 
 } ]);
