@@ -7,9 +7,7 @@
     <a class="btn red" data-ng-click="emptyMyCart()">Remove all items in my cart</a>
     <h3>Items in my cart</h3>
 
-    <a class="btn"data-ng-click="initCollapsible()">Test</a>
-
-
+    <a class="btn" data-ng-click="initCollapsible()">Test</a>
 
 
     <div data-ng-repeat="item in myItems">
@@ -27,7 +25,8 @@
     <h3>Items in database</h3>
     <div class="row">
 
-        <div data-ng-repeat="item in items |filter:searchInput" class="col s3">
+        <div data-ng-repeat="item in items |filter:searchInput" class="col s12 m6 l3">
+
 
             <div class="card">
                 <div class="itemImage">
@@ -39,14 +38,10 @@
                 </div>
                 <div class="card-action">
                     <a href="#">Add to cart</a>
-                    <ul class="collapsible popout" data-collapsible="accordion">
-                        <li>
-                            <div class="collapsible-header">More info</div>
-                            <div class="collapsible-body"><p>Halsdölaföljlkdfjk ldaflkjsdalkflk sjadlkflkajsdflk slkajdfkl jalsdflk asdf</p></div>
-                        </li>
-                    </ul>
+                    <a href="#" class="show-more-info">More info</a>
                 </div>
             </div>
+
 
         </div>
     </div>
