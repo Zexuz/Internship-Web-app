@@ -1,16 +1,15 @@
 "use strict";
 
 
-
 class RestApi {
 
 
-    constructor(url, $http) {
+    constructor( url, $http ) {
         this._url = url;
         this.$http = $http;
     }
 
-    sendPost(path, qs, data, sc, ec) {
+    sendPost( path, qs, data, sc, ec ) {
         this._makeRequest({
             method: "POST",
             url: this.url + path,
@@ -19,7 +18,7 @@ class RestApi {
         }, sc, ec);
     }
 
-    sendGet(path, qs, sc, ec) {
+    sendGet( path, qs, sc, ec ) {
         this._makeRequest({
             method: "GET",
             url: this.url + path,
@@ -27,7 +26,7 @@ class RestApi {
         }, sc, ec);
     }
 
-    sendDel(path, qs, sc, ec) {
+    sendDel( path, qs, sc, ec ) {
 
         this._makeRequest({
             method: "delete",
@@ -43,8 +42,25 @@ class RestApi {
      * @param errorCallback
      * @private
      */
-    _makeRequest(options, successCallback, errorCallback) {
+    _makeRequest( options, successCallback, errorCallback ) {
         this.$http(options).then(successCallback, errorCallback);
+    }
+
+    static _handelSuccess( callback, data ) {
+        console.log("SUCCESS");
+        console.log(data);
+        callback(null, data.data.data);
+    }
+
+    static _handelError( callback, data ) {
+
+        if ( data.data.success ) {
+            console.log("false positive");
+            console.log(data);
+            return callback(null, data.data.data);
+        }
+
+        callback(data.data.data);
     }
 
 
