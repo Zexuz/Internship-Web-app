@@ -1,17 +1,10 @@
 var app = angular.module("myApp");
 
-app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactory', 'articles', 'ToastFactory', function ( $scope, $http, cart, userFactory, articles, Toast ) {
+app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactory', 'ArticleFactory', 'ToastFactory', function ( $scope, $http, cart, userFactory, articles, Toast ) {
 
     var strNotLoggedIn = "You are not logged in, please login!";
     //get the token aka user id
     var token = userFactory.getUserInfo().token;
-
-    //set the article
-    $scope.items = Articles.query();
-
-    getMyItems(token, cart, function ( items ) {
-        $scope.myItems = items;
-    });
 
     $scope.addItem = function ( article ) {
         if ( !token ) Toast.showError(strNotLoggedIn);
@@ -55,7 +48,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
             $scope.myItems = updatedCart.items;
         });
-    }
+    };
 
     $scope.initCollapsible = function () {
         $(document).ready(function () {
@@ -71,13 +64,12 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
     $scope.getMyCart();
 
     //set the article
-    articles.getAllArticles(function ( err, data ) {
+    articles.getAllArticles(token, function ( err, data ) {
         if ( err ) return Toast.showError(err);
 
         $scope.items = data;
         //init all the modals after we fetched articles
         $('.modal-trigger').leanModal();
-    });
 
         setTimeout(function () {
 
@@ -90,7 +82,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
                 console.log("done");
             });
-        },1000);
+        }, 1000);
 
         console.log("Asdasdasdasdasd");
     });
@@ -103,11 +95,6 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
 
 } ]);
-
-function showError( err ) {
-    Materialize.toast(err.Error);
-    console.warn(err.Error);
-}
 
 function getMyItems( token, Toast, cart, callback ) {
     cart.getMyCart(token, function ( err, updatedCart ) {

@@ -21,6 +21,15 @@ app.factory('ToastFactory', function () {
 
     res.showError = function ( err, autoClose ) {
         autoClose = autoClose || false;
+        console.log("asdasdkasljdlkajlskd");
+        console.log("asdasdkasljdlkajlskd");
+        console.log("asdasdkasljdlkajlskd");
+        console.log("asdasdkasljdlkajlskd");
+        console.log("asdasdkasljdlkajlskd");
+        console.log("asdasdkasljdlkajlskd");
+
+
+
 
         res.show(err, autoClose);
     };

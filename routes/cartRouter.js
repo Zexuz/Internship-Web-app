@@ -18,90 +18,94 @@ router.delete('/:sku', deleteItem);
 
 router.get('/Receipt', getMyReceipt);
 
-function getMyCart(req, res) {
+function getMyCart( req, res ) {
     SimpleRes.sendSuccess(req, res, req.myApp.cart.toJson());
 }
 
-function addItem(req, res) {
+function addItem( req, res ) {
 
-    request("http://localhost:3000/ItemService/v1/Items", function (error, response, body) {
-        if (error || response.statusCode != 200) {
-            SimpleRes.sendError(req, res, {Error: `could not fetch database!`}, 404);
+    request("http://localhost:3000/ItemService/v1/Items", function ( error, response, body ) {
+        if ( error || response.statusCode != 200 ) {
+            SimpleRes.sendError(req, res, { Error: `could not fetch database!` }, 404);
             return;
         }
 
         var json;
 
+
         try {
             json = JSON.parse(body);
-        } catch (e) {
-            SimpleRes.sendError(req, res, {Error: `Can't get database`}, 500);
+            if ( json.success === false )
+                return SimpleRes.sendError(req, res, { Error: `Can't get database` }, 500);
+
+        } catch ( e ) {
+            SimpleRes.sendError(req, res, { Error: `Can't get database` }, 500);
             return;
         }
 
         var sku = req.params.sku || req.body.sku;
 
-        var products = json;
-        for (var i = 0; i < products.length; i++) {
-            if (sku === products[i].sku) {
-                req.myApp.cart.addItem(products[i]);
+        var products = json.data;
+        for ( var i = 0; i < products.length; i++ ) {
+            if ( sku === products[ i ].sku ) {
+                req.myApp.cart.addItem(products[ i ]);
                 return SimpleRes.sendSuccess(req, res, req.myApp.cart.toJson());
             }
 
         }
 
 
-        SimpleRes.sendError(req, res, {Error: `could not find article in database ${sku}`}, 404);
+        SimpleRes.sendError(req, res, { Error: `could not find article in database ${sku}` }, 404);
 
     })
 
 }
 
-function emptyMyCart(req, res) {
+function emptyMyCart( req, res ) {
 
     req.myApp.cart.empty();
     SimpleRes.sendSuccess(req, res, req.myApp.cart.toJson());
 }
 
-function deleteItem(req, res) {
+function deleteItem( req, res ) {
     var sku = req.params.sku;
 
 
-    var index = req.myApp.cart.indexOfItem({sku: parseInt(sku)});
-    if (index === -1) {
-        SimpleRes.sendError(req, res, {Error: 'Item not in cart'}, 404);
+    var index = req.myApp.cart.indexOfItem({ sku: parseInt(sku) });
+    if ( index === -1 ) {
+        SimpleRes.sendError(req, res, { Error: 'Item not in cart' }, 404);
         return;
     }
 
-    req.myApp.cart.removeItem(req.myApp.cart.items[index]);
+    req.myApp.cart.removeItem(req.myApp.cart.items[ index ]);
     SimpleRes.sendSuccess(req, res, req.myApp.cart.toJson());
 }
 
-function getMyReceipt(req, res) {
-    var receipt = new Receipt({cart:req.myApp.cart}).getReceipt();
+function getMyReceipt( req, res ) {
+    var receipt = new Receipt({ cart: req.myApp.cart }).getReceipt();
 
 
-    if (receipt.Error) {
+    if ( receipt.Error ) {
         return SimpleRes.sendError(req, res, receipt, 404);
     }
 
     SimpleRes.sendSuccess(req, res, receipt);
 }
 
-function logger(req, res, next) {
+function logger( req, res, next ) {
     var key = req.query.key;
     var logString = `Method : ${req.method}, Key : yes, Path : CartService/v1/Cart${req.path}, Date: ${new Date()}`;
     console.log(logString);
 
 
-    if (!key) {
-        let data = {Error: "Need key"};
+    if ( !key ) {
+        let data = { Error: "Need key" };
         return SimpleRes.sendError(req, res, data, 400);
     }
 
     var cart = Cart.getCartFromId(key);
-    if (!cart) {
-        let data = {Error: "No cart with that key"};
+    if ( !cart ) {
+        let data = { Error: "No cart with that key" };
         return SimpleRes.sendError(req, res, data, 403);
     }
 
