@@ -59,20 +59,6 @@ class CartApi extends RestApi {
             CartApi._handelError.bind(null, callback));
     }
 
-    static _handelSuccess(callback, data) {
-        callback(null, data.data.data);
-    }
-
-    static _handelError(callback, data) {
-
-        if (data.data.success) {
-            console.log("false positive");
-            console.log(data);
-            return callback(null, data.data.data);
-        }
-
-        callback(data.data.data);
-    }
 
 
 }

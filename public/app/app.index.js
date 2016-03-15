@@ -34,7 +34,7 @@ app.config([ '$routeProvider',
 
 app.constant('url', "http://localhost:3000");
 app.constant('CartService', "CartService/v1/Cart");
-app.constant('ItemService', "ItemService/v1/Item");
+app.constant('ItemService', "ItemService/v1/Items");
 app.constant('UserService', "UserService/v1/User");
 
 
