@@ -10,8 +10,10 @@ var http = require('http');
 
 /**
  * Make all the carts global
+ * Make all ZReports globals
  */
 global.__carts = [];
+global.__zReports = [];
 
 /**
  * Get port from environment and store in Express.
