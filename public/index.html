@@ -14,10 +14,12 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/materialize/dist/js/materialize.js"></script>
+    <script src="bower_components/chartist/dist/chartist.min.js"></script>
     <!-- My Own-->
     <script src="./app/app.index.js"></script>
     <!-- Styles-->
     <link href="bower_components/materialize/dist/css/materialize.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
 
 </head>
@@ -25,6 +27,7 @@
 <nav>
     <div class="nav-wrapper container">
         <ul id="nav" class="right hide-on-med-and-down">
+            <li><a href="./#/stats">Stats</a></li>
             <li><a href="./#/receipt">Receipt</a></li>
             <li><a href="./#/items">Shopping Cart</a></li>
             <li><a href="./#/index">Index</a></li>
@@ -41,6 +44,7 @@
 <script src="app/controllers/cartController.js"></script>
 <script src="app/controllers/loginController.js"></script>
 <script src="app/controllers/receiptController.js"></script>
+<script src="app/controllers/statsController.js"></script>
 
 <!-- Factories/Services -->
 <script src="app/services/cartFactory.js"></script>
