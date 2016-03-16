@@ -13,6 +13,9 @@
     "angular-route": "1.4.x",
     "angular-resource": "1.4.x",
     "lodash": "3.9.3",
-    "materialize": "0.97.5"
+    "materialize": "0.97.5",
+    "chartist": "^0.9.7",
+    "Chart.js": "^1.0.2",
+    "angular-chart.js": "^0.9.0"
   }
 }
