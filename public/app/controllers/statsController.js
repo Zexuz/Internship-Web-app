@@ -1,7 +1,7 @@
 var app = angular.module('myApp');
 
 
-app.controller('statsController', [ '$scope', function ( $scope ) {
+app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', function ( $scope, stats, Toast ) {
 
 
     $scope.labels = ["January", "February", "March", "April", "May", "June", "July"];
@@ -13,5 +13,16 @@ app.controller('statsController', [ '$scope', function ( $scope ) {
     $scope.onClick = function (points, evt) {
         console.log(points, evt);
     };
+
+    $scope.getAllInfo = function () {
+        console.log("fetching....");
+        stats.getAllInfo(null, function ( err, data ) {
+            if ( err ) return Toast.showError(err);
+
+            $scope.data = data;
+        });
+    };
+
+    $scope.getAllInfo();
 
 } ]);
