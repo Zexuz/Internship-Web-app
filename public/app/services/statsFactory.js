@@ -1,6 +1,6 @@
 var app = angular.module('myApp');
 
-app.factory('StatsFactory', [ '$http', 'CartService', function ( $http, apiUrl ) {
+app.factory('StatsFactory', [ '$http', 'StatsService', function ( $http, apiUrl ) {
     var service = new StatsApi(apiUrl, $http);
 
     var res = {};
