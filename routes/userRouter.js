@@ -18,7 +18,7 @@ router.post('/login', function ( req, res ) {
             return;
         }
 
-        if (!ShoppingCart.getCartFromId(token) ){
+        if ( !ShoppingCart.getCartFromId(token) ) {
             __carts.push(new ShoppingCart(token));
         }
 
@@ -32,7 +32,16 @@ function isTokenValid( url, token, callback ) {
     request(url + token, function ( error, response, body ) {
             if ( !error && response.statusCode == 200 ) {
 
-                callback(null, body);
+                var json;
+
+                try {
+                    json = JSON.parse(body);
+                } catch ( exception ) {
+                    console.log(exception);
+                    return callback(exception, null);
+                }
+
+                callback(null, json);
                 return;
             }
 
