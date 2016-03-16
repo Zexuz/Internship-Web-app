@@ -10,30 +10,34 @@ They start with a UPPERCASE char and use the PascalCase (Uppercase letter in the
 
 
 **God names**
-```HelloWorld.js```
-```Cash.js```
-```CashHelper.js```
+
+    HelloWorld.js
+    Cash.js
+    CashHelper.js
 
 **Bad names**
-```Hello-World.js```
-```cash.js```
-```cash_Helper.js```
+
+    Hello-World.js
+    cash.js
+    cash_Helper.js
 
 ##### Other
  
  ALL other javascript files should go under standard variable naming EG
  
  **God names**
- ```myFile.js```
- ```cash.js```
- ```cashHelper.js```
+ 
+     myFile.js
+     cash.js
+     cashHelper.js
  
  **Bad names**
- ```Bad-Name.js```
- ```BadName.js```
- ```bad_Name.js```
  
- ### Naming (What do I call it)
+     Bad-Name.js
+     BadName.js
+     bad_Name.js
+ 
+### Naming (What do I call it)
  
  ~~Bad~~ **GOD**
  
