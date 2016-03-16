@@ -1,12 +1,16 @@
 <div class="container">
     <div class="row">
         <div class="col s12">
-            <canvas id="line" class="chart chart-line" data-chart-data="data"
-                    data-chart-labels="labels" data-chart-legend="true" data-chart-series="series"
-                    data-chart-click="onClick">
+            <h2>Store Sales</h2>
+            <canvas id="bar" class="chart chart-bar"
+                    data-chart-data="barData" data-chart-labels="barLabels"> chart-series="series"
             </canvas>
+
+            <h2>Sales by person</h2>
+            <canvas id="doughnut" class="chart chart-doughnut"
+                    data-chart-data="doughnutData" data-chart-labels="doughnutLabels">
+            </canvas>
+
         </div>
     </div>
 </div>
-
-{{data}}
