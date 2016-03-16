@@ -26,7 +26,12 @@ app.config([ '$routeProvider',
                 templateUrl: '../views/receiptView.html',
                 controller: 'receiptController'
             })
-            
+
+            .when('/stats', {
+                templateUrl: '../views/statsView.html',
+                controller: 'statsController'
+            })
+
             .otherwise({
                 redirectTo: '/start'
             });
