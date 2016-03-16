@@ -1,6 +1,7 @@
 var app = angular.module('myApp', [
     'ngRoute',
-    'ngResource'
+    'ngResource',
+    'chart.js'
 ]);
 
 app.config([ '$routeProvider',
