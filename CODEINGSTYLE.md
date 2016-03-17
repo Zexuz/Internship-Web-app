@@ -42,6 +42,7 @@ They start with a UPPERCASE char and use the PascalCase (Uppercase letter in the
  ~~Bad~~ **GOD**
  
  ~~Basket~~ **Cart**
+ ~~Token~~ **Key**
  
  
  
