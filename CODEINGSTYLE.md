@@ -39,10 +39,12 @@ They start with a UPPERCASE char and use the PascalCase (Uppercase letter in the
  
 ### Naming (What do I call it)
  
+ A token is what google gives us.
+ We use a KEY for authentication
+ 
  ~~Bad~~ **GOD**
  
  ~~Basket~~ **Cart**
- ~~Token~~ **Key**
  
  
  
