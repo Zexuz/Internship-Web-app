@@ -8,12 +8,12 @@ var app = require('../app');
 var debug = require('debug')('REST:server');
 var http = require('http');
 
-/**
- * Make all the carts global
- * Make all ZReports globals
- */
-global.__carts = [];
-global.__zReports = [];
+var CashierHelpers = require('../lib/helpers/CashierHelper');
+var CartHelpers = require('../lib/helpers/CartHelper');
+
+
+app.locals.cashierHelper = new CashierHelpers();
+app.locals.cartHelper = new CartHelpers();
 
 /**
  * Get port from environment and store in Express.

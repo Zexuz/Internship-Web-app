@@ -4,12 +4,12 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
     var strNotLoggedIn = "You are not logged in, please login!";
     //get the token aka user id
-    var token = userFactory.getUserInfo().token;
+    var key = userFactory.getUserInfo().id;
 
     $scope.addItem = function ( article ) {
-        if ( !token ) Toast.showError(strNotLoggedIn);
+        if ( !key ) Toast.showError(strNotLoggedIn);
 
-        cart.addItem(article, token, function ( err, updatedCart ) {
+        cart.addItem(article, key, function ( err, updatedCart ) {
             if ( err ) return Toast.showError;
             $scope.myItems = updatedCart.items;
         })
@@ -18,9 +18,9 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
 
     $scope.removeItem = function ( item ) {
-        if ( !token ) Toast.showError(strNotLoggedIn);
+        if ( !key ) Toast.showError(strNotLoggedIn);
 
-        cart.removeItem(item, token, function ( err, updatedCart ) {
+        cart.removeItem(item, key, function ( err, updatedCart ) {
             if ( err ) return Toast.showError;
 
             console.log(updatedCart);
@@ -32,18 +32,18 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
 
     $scope.getMyCart = function () {
-        if ( !token ) Toast.showError(strNotLoggedIn);
+        if ( !key ) Toast.showError(strNotLoggedIn);
 
-        getMyItems(token, Toast, cart, function ( items ) {
+        getMyItems(key, Toast, cart, function ( items ) {
             $scope.myItems = items;
         });
     };
 
 
     $scope.emptyMyCart = function () {
-        if ( !token ) Toast.showError(strNotLoggedIn);
+        if ( !key ) Toast.showError(strNotLoggedIn);
 
-        cart.emptyMyCart(token, function ( err, updatedCart ) {
+        cart.emptyMyCart(key, function ( err, updatedCart ) {
             if ( err ) return Toast.showError;
 
             $scope.myItems = updatedCart.items;
@@ -64,7 +64,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
     $scope.getMyCart();
 
     //set the article
-    articles.getAllArticles(token, function ( err, data ) {
+    articles.getAllArticles(key, function ( err, data ) {
         if ( err ) return Toast.showError(err);
 
         $scope.items = data;
@@ -72,7 +72,6 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
     });
 
     $scope.openModal = function (id) {
-        Toast.showMessage("Loding $");
         $('.modal-trigger').leanModal();
 
         $('#'+id).openModal();

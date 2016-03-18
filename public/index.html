@@ -41,6 +41,14 @@
 
 <div data-ng-view></div>
 
+<!-- MY other libs -->
+<script src="lib/RestApi/bundle.js"></script>
+<script>
+    var RestApi = require('RestApi');
+    var ArticleApi = require('ArticleApi');
+    var CartApi = require('CartApi');
+    var StatsApi = require('StatsApi');
+</script>
 <!-- My angular scripts-->
 <!-- Controllers-->
 <script src="app/controllers/startController.js"></script>
@@ -55,12 +63,8 @@
 <script src="app/services/articleFactory.js"></script>
 <script src="app/services/toastFactory.js"></script>
 <script src="app/services/statsFactory.js"></script>
+<script src="app/services/loginFactory.js"></script>
 
-<!-- MY other libs -->
-<script src="./lib/RestApi/RestApi.js"></script>
-<script src="lib/RestApi/cart/CartApi.js"></script>
-<script src="lib/RestApi/articles/ArticleApi.js"></script>
-<script src="lib/RestApi/stats/StatsApi.js"></script>
 
 
 </body>
