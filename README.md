@@ -19,6 +19,8 @@ My Internship task
 
 To make the debug output work add this to your envoriment vars **"DEBUG=REST:*"**
 
+# OBS THIS INFO IS NOT ACTIVE
+
 ## Api
 
 localhost/\<service>/\<version>/\<path>
