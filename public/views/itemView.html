@@ -4,12 +4,6 @@
         <input type="text" placeholder="Search" data-ng-model="searchInput">
     </label>
 
-    <a class="btn red" data-ng-click="emptyMyCart()">Remove all items in my cart</a>
-    <h3>Items in my cart</h3>
-
-    <a class="btn" data-ng-click="initCollapsible()">Test</a>
-
-
     <div data-ng-repeat="item in myItems">
         <article>
             <a href="" class="btn red lighten-3" data-ng-click="removeItem(item,false)">Remove item from cart</a>
@@ -20,7 +14,6 @@
         </article>
     </div>
 
-    <hr>
     <!-- Modal Structure END -->
 
     <h3>Items in database</h3>
