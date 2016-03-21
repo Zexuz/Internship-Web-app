@@ -27,7 +27,7 @@ My Internship task
 
 localhost:3000/\<service>/\<version>/\<path>
 
-All data is returned with a status code (200 for success) and in the format **{success:boolean,data:object}**
+All data is returned with a status code (200 for success) and in the format ```{success:boolean,data:object}```
 
 
 ### CashierService/v1/Cashier/
