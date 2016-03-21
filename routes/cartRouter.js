@@ -31,23 +31,17 @@ function addItem( req, res ) {
 
 }
 
-
 function emptyMyCart( req, res ) {
     req.app.locals.tempdata.currentCashier.cart.empty();
     SimpleRes.sendSuccess(req, res, req.app.locals.tempdata.currentCashier.cart.toJson());
 }
 
 function deleteItem( req, res ) {
-    var sku = req.params.sku;
+    var sku = parseInt(req.params.sku);
+    var success = req.app.locals.tempdata.currentCashier.cart.removeItem({ sku: sku });
 
-    var index = req.app.locals.tempdata.currentCashier.cart.indexOfItem({ sku: parseInt(sku) });
-    if ( index === -1 ) {
-        SimpleRes.sendError(req, res, { Error: 'Item not in cart' }, 404);
-        return;
-    }
+    if ( success === false ) return SimpleRes.sendError(req, res, { Error: 'Item not in cart' }, 404);
 
-    var item = req.app.locals.tempdata.currentCashier.cart.items[ index ];
-    req.app.locals.tempdata.currentCashier.cart.removeItem(item);
     SimpleRes.sendSuccess(req, res, req.app.locals.tempdata.currentCashier.cart.toJson());
 }
 
@@ -75,7 +69,6 @@ function checkIfDataIsValid( req, res, next ) {
 
     next();
 }
-
 
 function getMyReceipt( req, res ) {
     var myCart = req.app.locals.tempdata.currentCashier.cart;
