@@ -24,6 +24,10 @@ app.factory('CartFactory', ['$http', 'CartService', function ($http, apiUrl) {
     res.getReceipt = function (key, callback) {
         service.getReceipt(key, callback);
     };
+    
+    res.pay = function ( key,callback ) {
+        service.pay(key,callback);
+    }
 
 
     return res;

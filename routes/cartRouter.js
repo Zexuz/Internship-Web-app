@@ -13,6 +13,10 @@ router.delete('/', emptyMyCart);
 router.delete('/:sku', deleteItem);
 router.get('/receipt/', getMyReceipt);
 
+
+router.post('/pay/', pay);
+
+
 function getMyCart( req, res ) {
     SimpleRes.sendSuccess(req, res, req.app.locals.tempdata.currentCashier.cart.toJson());
 }
@@ -53,6 +57,12 @@ function getMyReceipt( req, res ) {
     }
 
     SimpleRes.sendSuccess(req, res, receipt);
+}
+
+function pay( req, res ) {
+    var cart = req.app.locals.tempdata.currentCashier.cart;
+
+    SimpleRes.sendSuccess(req, res, cart.toJson());
 }
 
 module.exports = router;
