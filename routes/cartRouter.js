@@ -60,7 +60,17 @@ function getMyReceipt( req, res ) {
 }
 
 function pay( req, res ) {
+
+    //set it to inActive
+    req.app.locals.tempdata.currentCashier.cart.isActive = false;
+
     var cart = req.app.locals.tempdata.currentCashier.cart;
+    //add it to payed carts
+    req.app.locals.cartHelper.addPayedCart(cart);
+
+    var cartHelper = req.app.locals.cartHelper;
+    var cashier = req.app.locals.tempdata.currentCashier;
+    req.app.locals.tempdata.currentCashier.cart = new Cart(++cartHelper.cartIds, cashier.id);
 
     SimpleRes.sendSuccess(req, res, cart.toJson());
 }

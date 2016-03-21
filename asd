@@ -79,6 +79,16 @@ istället för success/fail så vi kan åternavända det på våran backend får
 
 
 
+TODO
+
+Efter vi tryckt på "PAY FOR THIW NOW" så borde våran "cart" bli
+
+1, inactive
+2, flyttas till "used cart"
+3, en ny tom cart ska nu ersätta den gamla.
+
+
+
 
 
 
