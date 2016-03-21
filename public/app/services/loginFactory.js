@@ -9,22 +9,27 @@ angular.module('myApp').factory('LoginFactory', [ 'UserFactory', '$http', functi
                 console.log("using old gapi");
                 return callback();
             }
-            console.log("init gapi");
+
             res.GoogleAuth = gapi.auth2.init(
                 {
                     client_id: '810399730223-922f1ahb6281ce72fvrm7u6ou6g52bb0.apps.googleusercontent.com'
                 }
             );
-
-            callback();
+            
+            res.GoogleAuth.then(function ( test) {
+                console.log("aslksdfklajsdkfjalskdjf");
+                console.log(test);
+                callback();
+            },function ( fail ) {
+                console.log("fail1");
+                console.log(fail);
+            });
         });
     };
 
 
     res.loginToGoogle = function ( callback ) {
-        res.GoogleAuth.signIn().then(function ( googleUser ) {
-            callback(googleUser.getAuthResponse().id_token);
-        });
+        return res.GoogleAuth.signIn();
     };
 
     res.logOut = function ( callback ) {
