@@ -34,10 +34,10 @@ All data is returned with a status code (200 for success) and in the format **{s
  
 #### GET ```/```
      
-  Required query params: **key**
-  Optional query params: **none**
-  Full path example: ```CashierService/v1/Cashier/?key=<subjectKey>```
-  Returns : **List of all logged in cashiers**
+  Required query params: **key**  
+  Optional query params: **none**  
+  Full path example: ```CashierService/v1/Cashier/?key=<subjectKey>```  
+  Returns : **List of all logged in cashiers**  
     
 ##### Descriptions:
      
@@ -47,10 +47,10 @@ All data is returned with a status code (200 for success) and in the format **{s
 
 #### POST ```/```
    
-  Required query params: **token**
-  Optional query params: **none**
-  Full path example: ```CashierService/v1/Cashier/?token=<googleToken>```
-  Returns : **googleObject**
+  Required query params: **token**  
+  Optional query params: **none**  
+  Full path example: ```CashierService/v1/Cashier/?token=<googleToken>```  
+  Returns : **googleObject**  
   
 ##### Descriptions:
    
@@ -60,10 +60,10 @@ All data is returned with a status code (200 for success) and in the format **{s
 
 #### DELETE ```/```
    
-  Required query params: **key**
-  Optional query params: **none**
-  Full path example: ```CashierService/v1/Cashier/?key=<subjectKey>```
-  Returns : **boolean**
+  Required query params: **key**  
+  Optional query params: **none**  
+  Full path example: ```CashierService/v1/Cashier/?key=<subjectKey>```  
+  Returns : **boolean**  
   
 ##### Descriptions:
    
@@ -74,10 +74,10 @@ All data is returned with a status code (200 for success) and in the format **{s
   
 #### GET ```/```
    
-  Required query params: **Key**
-  Optional query params: **none**
-  Full path example: ```CashierService/v1/Cashier/Cart/?key=<subjectKey>```
-  Returns : **My cart**
+  Required query params: **Key**  
+  Optional query params: **none**  
+  Full path example: ```CashierService/v1/Cashier/Cart/?key=<subjectKey>```  
+  Returns : **My cart**  
   
 ##### Descriptions:
    
@@ -85,10 +85,10 @@ All data is returned with a status code (200 for success) and in the format **{s
   
 #### POST ```/```
    
-  Required query params: **Key, sku**
-  Optional query params: **none**
-  Full path example: ```CashierService/v1/Cashier/Cart/?key=<subjectKey>```
-  Returns : **My cart**
+  Required query params: **Key, sku**  
+  Optional query params: **none**  
+  Full path example: ```CashierService/v1/Cashier/Cart/?key=<subjectKey>```  
+  Returns : **My cart**  
   
 ##### Descriptions:
    
@@ -96,10 +96,10 @@ All data is returned with a status code (200 for success) and in the format **{s
   
 #### DELETE ```/```
    
-  Required query params: **Key**
-  Optional query params: **none**
-  Full path example: ```CashierService/v1/Cashier/Cart/?key=<subjectKey>```
-  Returns : **My cart**
+  Required query params: **Key**  
+  Optional query params: **none**  
+  Full path example: ```CashierService/v1/Cashier/Cart/?key=<subjectKey>```  
+  Returns : **My cart**  
   
 ##### Descriptions:
   Empties my cart
@@ -107,10 +107,10 @@ All data is returned with a status code (200 for success) and in the format **{s
 ### ItemService/v1/Items
 #### GET  ```/```
    
-  Required query params: **none**
-  Optional query params: **none**
-  Full path example: ```CashierService/v1/Cashier/Cart/?key=<subjectKey>```
-  Returns : **List of all products in our database**
+  Required query params: **none**  
+  Optional query params: **none**  
+  Full path example: ```CashierService/v1/Cashier/Cart/?key=<subjectKey>```  
+  Returns : **List of all products in our database**  
   
 ##### Descriptions:
   Used to get a list of all products in our database (atm products from best buy)
