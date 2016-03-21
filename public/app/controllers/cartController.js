@@ -4,7 +4,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
     var strNotLoggedIn = "You are not logged in, please login!";
     //get the token aka user id
-    var key = userFactory.getUserInfo();
+    var key = userFactory.getUserInfo().id;
 
     if ( !key )return Toast.showError(strNotLoggedIn);
 
@@ -33,15 +33,6 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
     };
 
 
-    $scope.getMyCart = function () {
-        if ( !key ) Toast.showError(strNotLoggedIn);
-
-        getMyItems(key, Toast, cart, function ( items ) {
-            $scope.myItems = items;
-        });
-    };
-
-
     $scope.emptyMyCart = function () {
         if ( !key ) Toast.showError(strNotLoggedIn);
 
@@ -51,19 +42,6 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
             $scope.myItems = updatedCart.items;
         });
     };
-
-    $scope.initCollapsible = function () {
-        $(document).ready(function () {
-
-            console.log("done");
-        });
-    };
-
-    //does not work?
-    $scope.initCollapsible();
-
-    //load my items
-    $scope.getMyCart();
 
     //set the article
     articles.getAllArticles(key, function ( err, data ) {
@@ -81,11 +59,3 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
 
 } ]);
-
-function getMyItems( token, Toast, cart, callback ) {
-    cart.getMyCart(token, function ( err, updatedCart ) {
-        if ( err ) return Toast.showError;
-
-        callback(updatedCart.items);
-    });
-}

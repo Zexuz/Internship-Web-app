@@ -4,16 +4,6 @@
         <input type="text" placeholder="Search" data-ng-model="searchInput">
     </label>
 
-    <div data-ng-repeat="item in myItems">
-        <article>
-            <a href="" class="btn red lighten-3" data-ng-click="removeItem(item,false)">Remove item from cart</a>
-            <span>Name </span>{{item.name}}
-            <span>SKU </span>{{item.sku}}
-            <span>Quantity </span>{{item.quant}}
-            <span>Price </span>{{item.salePrice}}
-        </article>
-    </div>
-
     <!-- Modal Structure END -->
 
     <h3>Items in database</h3>
