@@ -12,61 +12,61 @@ router.get('/', getMyCart);
 router.post('/', addItem);
 router.delete('/', emptyMyCart);
 router.delete('/:sku', deleteItem);
+router.get('/receipt/', getMyReceipt);
 
-
-function getMyCart(req, res) {
+function getMyCart( req, res ) {
     SimpleRes.sendSuccess(req, res, req.app.locals.tempdata.currentCashier.cart.toJson());
 }
 
-function addItem(req, res) {
+function addItem( req, res ) {
 
     var sku = req.params.sku || req.body.sku;
     sku = parseInt(sku);
 
-    req.app.locals.tempdata.currentCashier.cart.addItem(sku).then(function (data) {
+    req.app.locals.tempdata.currentCashier.cart.addItem(sku).then(function ( data ) {
         SimpleRes.sendSuccess(req, res, req.app.locals.tempdata.currentCashier.cart.toJson());
-    }).catch(function (data) {
-        SimpleRes.sendError(req, res, {Error: `could not find article in database ${sku}`}, 404);
+    }).catch(function ( data ) {
+        SimpleRes.sendError(req, res, { Error: `could not find article in database ${sku}` }, 404);
     });
 
 }
 
 
-function emptyMyCart(req, res) {
+function emptyMyCart( req, res ) {
     req.app.locals.tempdata.currentCashier.cart.empty();
     SimpleRes.sendSuccess(req, res, req.app.locals.tempdata.currentCashier.cart.toJson());
 }
 
-function deleteItem(req, res) {
+function deleteItem( req, res ) {
     var sku = req.params.sku;
 
-    var index = req.app.locals.tempdata.currentCashier.cart.indexOfItem({sku: parseInt(sku)});
-    if (index === -1) {
-        SimpleRes.sendError(req, res, {Error: 'Item not in cart'}, 404);
+    var index = req.app.locals.tempdata.currentCashier.cart.indexOfItem({ sku: parseInt(sku) });
+    if ( index === -1 ) {
+        SimpleRes.sendError(req, res, { Error: 'Item not in cart' }, 404);
         return;
     }
 
-    var item = req.app.locals.tempdata.currentCashier.cart.items[index];
+    var item = req.app.locals.tempdata.currentCashier.cart.items[ index ];
     req.app.locals.tempdata.currentCashier.cart.removeItem(item);
     SimpleRes.sendSuccess(req, res, req.app.locals.tempdata.currentCashier.cart.toJson());
 }
 
-function checkIfDataIsValid(req, res, next) {
+function checkIfDataIsValid( req, res, next ) {
     var key = req.query.key;
     var logString = `Method : ${req.method}, Key : yes, Path : CartService/v1/Cart${req.path}, Date: ${new Date()}`;
     console.log(logString);
 
     var cashierHelper = req.app.locals.cashierHelper;
 
-    if (!key) {
-        let data = {Error: "Need key"};
+    if ( !key ) {
+        let data = { Error: "Need key" };
         return SimpleRes.sendError(req, res, data, 400);
     }
 
     var index = cashierHelper.indexOfCashierById(key);
 
-    if (index === -1) {
-        let data = {Error: "No logged in cashier by that id"};
+    if ( index === -1 ) {
+        let data = { Error: "No logged in cashier by that id" };
         return SimpleRes.sendError(req, res, data, 403);
     }
 
@@ -77,18 +77,15 @@ function checkIfDataIsValid(req, res, next) {
 }
 
 
-/*
- function getMyReceipt( req, res ) {
- var receipt = new Receipt({ cart: req.myApp.cart }).getReceipt();
+function getMyReceipt( req, res ) {
+    var myCart = req.app.locals.tempdata.currentCashier.cart;
+    var receipt = new Receipt({ cart: myCart }).getReceipt();
 
+    if ( receipt.Error ) {
+        return SimpleRes.sendError(req, res, receipt, 404);
+    }
 
- if ( receipt.Error ) {
- return SimpleRes.sendError(req, res, receipt, 404);
- }
- router.get('/Receipt', getMyReceipt);
-
- SimpleRes.sendSuccess(req, res, receipt);
- }
- */
+    SimpleRes.sendSuccess(req, res, receipt);
+}
 
 module.exports = router;
