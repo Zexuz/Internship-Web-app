@@ -104,6 +104,20 @@ All data is returned with a status code (200 for success) and in the format ```{
 ##### Descriptions:
   Empties my cart
 
+
+### CashierService/v1/Cashier/Cart/Receipt
+  
+#### GET ```/```
+   
+  Required query params: **Key**  
+  Optional query params: **none**  
+  Full path example: ```CashierService/v1/Cashier/Cart/Receipt?key=<subjectKey>```  
+  Returns : **A receipt**  
+  
+##### Descriptions:
+   
+  Returns a receipt based on what's in my cart.
+
 ### ItemService/v1/Items
 #### GET  ```/```
    
