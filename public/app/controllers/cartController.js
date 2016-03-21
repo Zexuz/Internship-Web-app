@@ -4,7 +4,9 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
     var strNotLoggedIn = "You are not logged in, please login!";
     //get the token aka user id
-    var key = userFactory.getUserInfo().id;
+    var key = userFactory.getUserInfo();
+
+    if ( !key )return Toast.showError(strNotLoggedIn);
 
     $scope.addItem = function ( article ) {
         if ( !key ) Toast.showError(strNotLoggedIn);
@@ -71,10 +73,10 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
     });
 
-    $scope.openModal = function (id) {
+    $scope.openModal = function ( id ) {
         $('.modal-trigger').leanModal();
 
-        $('#'+id).openModal();
+        $('#' + id).openModal();
     };
 
 
