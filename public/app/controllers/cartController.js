@@ -6,6 +6,8 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
     //get the token aka user id
     var key = userFactory.getUserInfo().id;
 
+    if ( !key )return Toast.showError(strNotLoggedIn);
+
     $scope.addItem = function ( article ) {
         if ( !key ) Toast.showError(strNotLoggedIn);
 
@@ -31,15 +33,6 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
     };
 
 
-    $scope.getMyCart = function () {
-        if ( !key ) Toast.showError(strNotLoggedIn);
-
-        getMyItems(key, Toast, cart, function ( items ) {
-            $scope.myItems = items;
-        });
-    };
-
-
     $scope.emptyMyCart = function () {
         if ( !key ) Toast.showError(strNotLoggedIn);
 
@@ -50,19 +43,6 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
         });
     };
 
-    $scope.initCollapsible = function () {
-        $(document).ready(function () {
-
-            console.log("done");
-        });
-    };
-
-    //does not work?
-    $scope.initCollapsible();
-
-    //load my items
-    $scope.getMyCart();
-
     //set the article
     articles.getAllArticles(key, function ( err, data ) {
         if ( err ) return Toast.showError(err);
@@ -71,19 +51,11 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
     });
 
-    $scope.openModal = function (id) {
+    $scope.openModal = function ( id ) {
         $('.modal-trigger').leanModal();
 
-        $('#'+id).openModal();
+        $('#' + id).openModal();
     };
 
 
 } ]);
-
-function getMyItems( token, Toast, cart, callback ) {
-    cart.getMyCart(token, function ( err, updatedCart ) {
-        if ( err ) return Toast.showError;
-
-        callback(updatedCart.items);
-    });
-}

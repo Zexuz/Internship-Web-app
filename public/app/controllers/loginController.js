@@ -13,7 +13,9 @@ app.controller('loginController', [ '$scope', 'UserFactory', '$http', 'LoginFact
 
     $scope.onLogInButtonClick = function () {
         loginFactory.initGoogleAuth(function () {
-            loginFactory.loginToGoogle(function ( googleToken ) {
+            loginFactory.loginToGoogle().then(function ( googleUser ) {
+                var googleToken = googleUser.getAuthResponse().id_token;
+
                 $scope.status = "Logged in to google successfully";
                 loginFactory.login(googleToken, function ( err, googleInfo ) {
                     if ( err ) {
@@ -25,7 +27,8 @@ app.controller('loginController', [ '$scope', 'UserFactory', '$http', 'LoginFact
 
                     userFactory.saveUserInfo(googleInfo);
                 });
-            })
+
+            });
         });
     };
 
