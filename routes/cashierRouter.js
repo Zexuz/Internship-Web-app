@@ -12,8 +12,6 @@ router.post('/', login);
 router.get('/', listAllLoggedInCashiers);
 router.delete('/', logOut);
 
-//todo Cashier can now login and logout, That works. Now need to add/remove items in cart.
-
 //======================================================
 //======================================================
 //======================================================

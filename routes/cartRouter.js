@@ -6,7 +6,6 @@ var Cart = require('../lib/Cart');
 var Receipt = require('../lib/Receipt');
 var SimpleRes = require('../lib/SimpleResponse');
 
-router.use(checkIfDataIsValid);
 
 router.get('/', getMyCart);
 router.post('/', addItem);
@@ -43,31 +42,6 @@ function deleteItem( req, res ) {
     if ( success === false ) return SimpleRes.sendError(req, res, { Error: 'Item not in cart' }, 404);
 
     SimpleRes.sendSuccess(req, res, req.app.locals.tempdata.currentCashier.cart.toJson());
-}
-
-function checkIfDataIsValid( req, res, next ) {
-    var key = req.query.key;
-    var logString = `Method : ${req.method}, Key : yes, Path : CartService/v1/Cart${req.path}, Date: ${new Date()}`;
-    console.log(logString);
-
-    var cashierHelper = req.app.locals.cashierHelper;
-
-    if ( !key ) {
-        let data = { Error: "Need key" };
-        return SimpleRes.sendError(req, res, data, 400);
-    }
-
-    var index = cashierHelper.indexOfCashierById(key);
-
-    if ( index === -1 ) {
-        let data = { Error: "No logged in cashier by that id" };
-        return SimpleRes.sendError(req, res, data, 403);
-    }
-
-    req.app.locals.tempdata = {};
-    req.app.locals.tempdata.currentCashier = cashierHelper.getCashierFromIndex(index);
-
-    next();
 }
 
 function getMyReceipt( req, res ) {
