@@ -21,7 +21,9 @@ My Internship task
 
   To make the debug output work add this to your envoriment vars ```DEBUG=REST:```
 
-# OBS THIS INFO IS NOT ACTIVE
+# Testing
+
+```npm test``` will run mocha and all our test cases.
 
 ## Api
 
