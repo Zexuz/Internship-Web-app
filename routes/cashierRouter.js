@@ -23,7 +23,7 @@ function login( req, res ) {
 
         .then(checkIfCashierIsLoggedIn.bind(null, req.app.locals.cashierHelper))
         .then(logCashierIn.bind(null, req.app.locals.cashierHelper))
-        .then(fetchCart.bind(null, req.app.locals.cartHelper))
+        .then(createCart.bind(null, req.app.locals.cashierHelper, req.app.locals.cartHelper))
         .then(responseLoginSuccess.bind(null, req, res))
         .catch(function ( data ) {
             console.log(data);
@@ -55,14 +55,12 @@ function logOut( req, res ) {
 
 /***Functions***/
 
-function fetchCart( cartHelper, cashier ) {
+function createCart( cashierHelper, cartHelper, cashier ) {
 
-    var cart = cartHelper.getCartByCashiersId(cashier.id);
+    cashier.cart = new Cart(++cartHelper.cartIds, cashier.id);
 
-    if ( !cart )
-        cart = new Cart(cashier.id);
-
-    cashier.cart = cart;
+    cashierHelper.addCashier(cashier);
+    console.log("added cashier", cashier.name);
 
     return cashier;
 }
@@ -81,11 +79,7 @@ function logCashierIn( cashierHelper, googleInfo ) {
     var name = googleInfo.name;
     var email = googleInfo.email;
 
-    var cashier = new Cashier(id, name, email);
-    cashierHelper.addCashier(cashier);
-    console.log("added cashier", cashier.name);
-
-    return cashier;
+    return new Cashier(id, name, email);
 }
 
 function isCashierLoggedIn( cashierHelper, id ) {

@@ -41,12 +41,12 @@ var RestApi = require('../RestApi');
 
 class CartApi extends RestApi {
 
-    constructor(url, $http) {
+    constructor( url, $http ) {
         super(url, $http);
     }
 
 
-    getMyCart(key, callback) {
+    getMyCart( key, callback ) {
         this.sendGet("/",
             {
                 key: key
@@ -56,7 +56,7 @@ class CartApi extends RestApi {
     }
 
 
-    addItem(item, key, callback) {
+    addItem( item, key, callback ) {
         this.sendPost("/",
             {
                 key: key
@@ -65,11 +65,10 @@ class CartApi extends RestApi {
             },
             CartApi._handelSuccess.bind(null, callback),
             CartApi._handelError.bind(null, callback)
-        )
-        ;
+        );
     }
 
-    emptyMyCart(key, callback) {
+    emptyMyCart( key, callback ) {
         this.sendDel("/",
             {
                 key: key
@@ -78,7 +77,7 @@ class CartApi extends RestApi {
             CartApi._handelError.bind(null, callback));
     }
 
-    removeItem(item, key, callback) {
+    removeItem( item, key, callback ) {
         this.sendDel("/" + item.sku,
             {
                 key: key
@@ -87,10 +86,23 @@ class CartApi extends RestApi {
             CartApi._handelError.bind(null, callback));
     }
 
-    getReceipt(key, callback) {
-        this.sendGet("/Receipt?key=" + key,
+    getReceipt( key, callback ) {
+        this.sendGet("/Receipt",
+            {
+                key: key
+            },
             CartApi._handelSuccess.bind(null, callback),
             CartApi._handelError.bind(null, callback));
+    }
+
+    pay( key, callback ) {
+        this.sendPost("/Pay",
+            {
+                key: key
+            }, {},
+            CartApi._handelSuccess.bind(null, callback),
+            CartApi._handelError.bind(null, callback)
+        );
     }
 
 }
@@ -113,7 +125,8 @@ class RestApi {
             method: "POST",
             url: this.url + path,
             params: qs,
-            data: data
+            data: data,
+            json: true
         }, sc, ec);
     }
 
@@ -121,7 +134,8 @@ class RestApi {
         this._makeRequest({
             method: "GET",
             url: this.url + path,
-            params: qs
+            params: qs,
+            json: true
         }, sc, ec);
     }
 
@@ -130,7 +144,8 @@ class RestApi {
         this._makeRequest({
             method: "delete",
             url: this.url + path,
-            params: qs
+            params: qs,
+            json: true
         }, sc, ec);
     }
 
@@ -140,15 +155,19 @@ class RestApi {
     }
 
     static _handelSuccess( callback, data ) {
-        data = data.data || data;
+        if ( data.data.data ) { //angular
+            data = data.data;
+        }
+
         callback(null, data.data);
     }
 
     static _handelError( callback, data ) {
+        if ( data.data.data ) { //angular
+            data = data.data;
+        }
 
-        data = data.data || data;
-
-        if ( data.success) {
+        if ( data.success ) {
             return callback(null, data.data);
         }
 

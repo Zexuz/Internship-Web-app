@@ -18,7 +18,6 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
     };
 
-
     $scope.removeItem = function ( item ) {
         if ( !key ) Toast.showError(strNotLoggedIn);
 
@@ -29,9 +28,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
             $scope.myItems = updatedCart.items;
         });
 
-
     };
-
 
     $scope.emptyMyCart = function () {
         if ( !key ) Toast.showError(strNotLoggedIn);
@@ -41,6 +38,15 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
             $scope.myItems = updatedCart.items;
         });
+    };
+
+    $scope.pay = function () {
+        Toast.showMessage("Paying....", true);
+        cart.pay(key, function ( err ) {
+            if ( err ) return Toast.showError;
+
+            Toast.showMessage("Done", true);
+        })
     };
 
     //set the article

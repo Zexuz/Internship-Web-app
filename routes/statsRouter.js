@@ -5,13 +5,11 @@ var router = express.Router();
 
 var SimpleRes = require('../lib/SimpleResponse');
 
-var tempData = require('../resources/salesInfoTemp');
+router.get("/", getAllInfo);
 
-router.get("/",getAllInfo);
+function getAllInfo( req, res ) {
 
-function getAllInfo(req,res){
-
-    SimpleRes.sendSuccess(req,res,tempData.SALES);
+    SimpleRes.sendSuccess(req, res, req.app.locals.cartHelper.paidCarts);
 
 }
 

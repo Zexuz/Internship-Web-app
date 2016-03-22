@@ -31,6 +31,9 @@
             <p>VAT %:<strong class="right">{{receipt.totalVat.percent}}</strong></p>
             <p>Vat :<strong class="right">{{receipt.totalVat.money}}</strong></p>
             <h5>Total:<strong class="right">{{receipt.totalPrice}}</strong></h5>
+            <div ng-controller="cartController">
+                <a href="" class="btn" ng-click="pay()">Pay for this now</a>
+            </div>
 
         </div>
     </div>
