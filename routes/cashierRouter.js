@@ -42,11 +42,7 @@ function logOut( req, res ) {
     var cashierHelper = req.app.locals.cashierHelper;
 
     var cashierId = req.query.key;
-
-    if ( !isCashierLoggedIn(cashierHelper, cashierId) ) {
-        return SimpleResponse.sendError(req, res, "User not logged in", 404)
-    }
-
+    
     cashierHelper.removeCashier(cashierHelper.getCashierFromIndex(cashierHelper.indexOfCashierById(cashierId)));
     SimpleResponse.sendSuccess(req, res, true);
 

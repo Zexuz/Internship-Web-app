@@ -3,7 +3,7 @@ var should = require("should");
 
 // This agent refers to PORT where program is runninng.
 
-var server = supertest.agent("http://localhost:3000/CashierService/v1");
+var server = supertest.agent("http://localhost:3000");
 
 // UNIT test begin
 
@@ -14,14 +14,14 @@ var profile = {
 var subjectKey = "108095145396623472249";
 
 
-describe("SAMPLE unit test", function () {
+describe("SAMPLE unit test on router /CashierService/v1/Cashier ", function () {
 
-    // #1 should return home page
+    var service = "/CashierService/v1/Cashier";
 
     it("should return a user AKA Cashier", function ( done ) {
 
         server
-            .post("/Cashier")
+            .post("")
             .send(profile)
             .expect(200) // This is HTTP response
             .end(function ( err, res ) {
@@ -41,7 +41,7 @@ describe("SAMPLE unit test", function () {
     it("should return cashier already logged in", function ( done ) {
 
         server
-            .post("/Cashier")
+            .post("")
             .send(profile)
             .expect(401) // This is HTTP response
             .end(function ( err, res ) {
@@ -54,5 +54,33 @@ describe("SAMPLE unit test", function () {
                 done();
             });
     });
+
+    it("should log the cashier out",function ( done ) {
+        server
+            .delete("")
+            .query({key:subjectKey})
+            .expect(200) // This is HTTP response
+            .end(function ( err, res ) {
+                // HTTP status should be 200
+                res.status.should.equal(200);
+
+                res.body.success.should.equal(true);
+                res.body.data.should.equal(true);
+                done();
+            });
+    });
+
+    it("should return cashier not found AKA alredy logged out",function ( done ) {
+        //This testes that we can't logout a user that is not logged in.
+        server
+            .delete("")
+            .query({key:subjectKey})
+            .expect(403) // This is HTTP response
+            .end(function ( err, res ) {
+                res.status.should.equal(403);
+                res.body.success.should.equal(false);
+                done();
+            });
+    })
 
 });
