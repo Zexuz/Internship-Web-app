@@ -182,6 +182,9 @@ describe("SAMPLE unit test", function () {
                 });
         });
 
+        //todo test for paying
+        //todo test for looking at z-report
+
 
     });
 
