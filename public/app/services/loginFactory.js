@@ -1,4 +1,4 @@
-angular.module('myApp').factory('LoginFactory', [ 'UserFactory', '$http', function ( user, $http ) {
+angular.module('myApp').factory('LoginFactory', [ 'UserFactory', '$http','UserService','url', function ( user, $http ,UserService,url) {
 
     var res = {};
 
@@ -41,7 +41,7 @@ angular.module('myApp').factory('LoginFactory', [ 'UserFactory', '$http', functi
     res.logOut = function ( key, callback ) {
         $http({
             method: "delete",
-            url: "http://localhost:3000/CashierService/v1/Cashier",
+            url: url + UserService,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             params: { key: key }
         }).then(function successCallback( response ) {
@@ -58,7 +58,7 @@ angular.module('myApp').factory('LoginFactory', [ 'UserFactory', '$http', functi
     res.login = function ( user_token, callback ) {
         $http({
             method: "post",
-            url: "http://localhost:3000/CashierService/v1/Cashier",
+            url: url + UserService,
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
             data: "key=" + user_token
         }).then(function successCallback( response ) {
