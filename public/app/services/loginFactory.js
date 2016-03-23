@@ -15,12 +15,12 @@ angular.module('myApp').factory('LoginFactory', [ 'UserFactory', '$http', functi
                     client_id: '810399730223-922f1ahb6281ce72fvrm7u6ou6g52bb0.apps.googleusercontent.com'
                 }
             );
-            
-            res.GoogleAuth.then(function ( test) {
+
+            res.GoogleAuth.then(function ( test ) {
                 console.log("aslksdfklajsdkfjalskdjf");
                 console.log(test);
                 callback();
-            },function ( fail ) {
+            }, function ( fail ) {
                 console.log("fail1");
                 console.log(fail);
             });
@@ -32,12 +32,26 @@ angular.module('myApp').factory('LoginFactory', [ 'UserFactory', '$http', functi
         return res.GoogleAuth.signIn();
     };
 
-    res.logOut = function ( callback ) {
-
+    res.logOutFromGoogle = function ( callback ) {
         res.GoogleAuth.signOut().then(function () {
-            console.log('User signed out.');
-            user.deleteUserInfo();
             callback();
+        });
+    };
+
+    res.logOut = function ( key, callback ) {
+        $http({
+            method: "delete",
+            url: "http://localhost:3000/CashierService/v1/Cashier",
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            params: { key: key }
+        }).then(function successCallback( response ) {
+            if ( response.data.success === true ) {
+                return callback(null, response.data.data);
+            }
+            callback(true, null);
+
+        }, function errorCallback( response ) {
+            callback(true, null);
         });
     };
 
