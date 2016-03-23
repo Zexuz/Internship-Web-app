@@ -32,6 +32,11 @@ app.config([ '$routeProvider',
                 templateUrl: '../views/statsView.html',
                 controller: 'statsController'
             })
+            
+            .when('/camera', {
+                templateUrl: '../views/cameraView.html',
+                controller: 'cameraController'
+            })
 
             .otherwise({
                 redirectTo: '/start'
