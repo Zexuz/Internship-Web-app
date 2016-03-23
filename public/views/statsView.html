@@ -2,14 +2,29 @@
     <div class="row">
         <div class="col s12">
             <h2>Store Sales</h2>
+            <label> Number of sales</label> {{numberOfCompleteSales}}
+            <label> items</label> {{numberOfItemsSold}}
             <canvas id="bar" class="chart chart-bar"
-                    data-chart-data="barData" data-chart-labels="barLabels"> chart-series="series"
+                    data-chart-data="barData" data-chart-labels="barLabels">
             </canvas>
 
-            <h2>Sales by person</h2>
+        </div>
+
+        <div class="col s6">
+
+            <h5>Items sold by person</h5>
             <canvas id="doughnut" class="chart chart-doughnut"
                     data-chart-data="doughnutData" data-chart-labels="doughnutLabels">
             </canvas>
+
+        </div>
+
+        <div class="col s6">
+            <h5>Item sum sold by person</h5>
+            <canvas id="doughnut1" class="chart chart-doughnut"
+                    data-chart-data="doughnutData1" data-chart-labels="doughnutLabels1">
+            </canvas>
+
 
         </div>
     </div>
