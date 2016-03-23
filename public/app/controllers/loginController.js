@@ -17,15 +17,16 @@ app.controller('loginController', [ '$scope', 'UserFactory', '$http', 'LoginFact
                 var googleToken = googleUser.getAuthResponse().id_token;
 
                 $scope.status = "Logged in to google successfully";
-                loginFactory.login(googleToken, function ( err, googleInfo ) {
+                loginFactory.login(googleToken, function ( err, user ) {
                     if ( err ) {
                         $scope.status = "Token is valid";
                         return;
                     }
 
-                    $scope.status = "Logged in successfully as " + googleInfo.name;
+                    $scope.status = "Logged in successfully as " + user.name;
 
-                    userFactory.saveUserInfo(googleInfo);
+                    userFactory.saveUserInfo(user);
+                    console.log(user);
                 });
 
             });
@@ -34,15 +35,15 @@ app.controller('loginController', [ '$scope', 'UserFactory', '$http', 'LoginFact
 
     $scope.signOut = function () {
         loginFactory.initGoogleAuth(function () {
-            loginFactory.logOut(function () {
-
-                var googleUser = userFactory.getUserInfo();
-                if ( googleUser && googleUser.name ) {
-                    $scope.status = "You are logged as :" + googleUser.name;
-                } else {
-                    $scope.status = "Not logged in!";
-                }
-                $scope.$apply();
+            loginFactory.logOutFromGoogle(function () {
+                loginFactory.logOut(userFactory.getUserInfo().id, function ( err ) {
+                    if ( err ) {
+                        return $scope.status = "There was a problem login you out!";
+                    }
+                    
+                    $scope.status = "Successfully logged out!";
+                    userFactory.deleteUserInfo();
+                });
 
             });
 
