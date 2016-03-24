@@ -31,7 +31,7 @@ router.get('/', function ( req, res ) {
 });
 
 router.get('/:sku', function ( req, res ) {
-    console.log("got one");
+    SimpleRes.sendSuccess(req, res, req.params.sku);
 });
 
 module.exports = router;
