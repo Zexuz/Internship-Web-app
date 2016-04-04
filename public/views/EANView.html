@@ -1,0 +1,20 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col s12">
+            {{test}}
+
+            <form class="ean-input" ng-submit="lookUpBarcode()">
+                <input type="text" placeholder="Eg: 846127170840" ng-model="EANNumber"
+                       ng-virtual-keyboard="{kt: 'Numerico',imageURI:'data:image/gif;base64,R0lGODlhEwALAKECAAAAABISEv///////yH5BAEKAAIALAAAAAATAAsAAAIdDI6pZ+suQJyy0ocV3bbm33EcCArmiUYk1qxAUAAAOw=='}"/>
+                <a href="" class="btn" ng-click="lookUpBarcode()">Look
+                    me up!</a>
+            </form>
+
+        </div>
+
+
+    </div>
+
+</div>

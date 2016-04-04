@@ -37,6 +37,7 @@ img {
 
 
 
+
 /*This is just to override the materialize css card-action class  */
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-floating){
     margin-right: 0;
