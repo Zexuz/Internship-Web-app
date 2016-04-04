@@ -6,8 +6,9 @@
             {{test}}
 
             <form class="ean-input" ng-submit="lookUpBarcode()">
-                <input type="text" placeholder="Eg: 846127170840" ng-model="EANNumber" ng-virtual-keyboard="{kt: 'Numerico',imageURI:'https://material-design.storage.googleapis.com/publish/material_v_4/material_ext_publish/0Bx4BSt6jniD7c2M0WDlSakI4akE/usability_bidirectionality_guidelines_whennot3.png'}"/>
-                <a href="" class="btn" ng-keyup="$event.keyCode == 13 && lookUpBarcode()" ng-click="lookUpBarcode()">Look
+                <input type="text" placeholder="Eg: 846127170840" ng-model="EANNumber"
+                       ng-virtual-keyboard="{kt: 'Numerico',imageURI:'data:image/gif;base64,R0lGODlhEwALAKECAAAAABISEv///////yH5BAEKAAIALAAAAAATAAsAAAIdDI6pZ+suQJyy0ocV3bbm33EcCArmiUYk1qxAUAAAOw=='}"/>
+                <a href="" class="btn" ng-click="lookUpBarcode()">Look
                     me up!</a>
             </form>
 
