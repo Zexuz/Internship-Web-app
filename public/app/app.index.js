@@ -1,7 +1,8 @@
 var app = angular.module('myApp', [
     'ngRoute',
     'ngResource',
-    'chart.js'
+    'chart.js',
+    'angular-virtual-keyboard'
 ]);
 
 app.config([ '$routeProvider',
@@ -32,7 +33,12 @@ app.config([ '$routeProvider',
                 templateUrl: '../views/statsView.html',
                 controller: 'statsController'
             })
-            
+
+            .when('/manual', {
+                templateUrl: '../views/EANView.html',
+                controller: 'EANController'
+            })
+
 
             .otherwise({
                 redirectTo: '/start'
