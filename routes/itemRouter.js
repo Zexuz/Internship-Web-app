@@ -24,6 +24,7 @@ router.get('/', function ( req, res ) {
     }
 });
 
+<<<<<<< HEAD
 router.get('/search', function ( req, res ) {
     var sku = req.query.sku;
     var EAN = req.query.ean;
@@ -69,6 +70,10 @@ router.get('/search', function ( req, res ) {
     }
 
 
+=======
+router.get('/:sku', function ( req, res ) {
+    SimpleRes.sendSuccess(req, res, req.params.sku);
+>>>>>>> master
 });
 
 function getItems( callback ) {

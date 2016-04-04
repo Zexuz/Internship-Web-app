@@ -8,6 +8,12 @@ app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', 'U
         console.log("fetching....");
         stats.getAllInfo(user.getUserInfo().id, function ( err, data ) {
             if ( err ) return Toast.showError(err);
+            
+            var stats = new Stats();
+
+            stats.apiData = data;
+
+            var cashier = stats.getCashiers();
 
 
             $scope.numberOfItemsSold = getNumberOfItemsSold(data);
@@ -19,21 +25,38 @@ app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', 'U
 
             $scope.barData = [
                 [
-                    getTotalSumForDay(data) * randomNumber(0.1, 1.9),
-                    getTotalSumForDay(data) * randomNumber(0.1, 1.9),
-                    getTotalSumForDay(data) * randomNumber(0.1, 1.9),
-                    getTotalSumForDay(data) * randomNumber(0.1, 1.9),
-                    getTotalSumForDay(data) * randomNumber(0.1, 1.9)
+                    stats.getTotalSoldToday() * randomNumber(0.1, 1.9),
+                    stats.getTotalSoldToday() * randomNumber(0.1, 1.9),
+                    stats.getTotalSoldToday() * randomNumber(0.1, 1.9),
+                    stats.getTotalSoldToday() * randomNumber(0.1, 1.9),
+                    stats.getTotalSoldToday() * randomNumber(0.1, 1.9)
                 ]
             ];
 
 
-            $scope.doughnutLabels = [ data[ 0 ].owner, data[ 1 ].owner ];
-            $scope.doughnutData = [ data[ 0 ]._items.length, data[ 1 ]._items.length ];
+            var doLable = [];
+            var doData = [];
+
+            var doLable1 = [];
+            var doData1 = [];
+
+            for ( let i = 0; i < cashier.length; i++ ) {
+                let sale = cashier[ i ];
+
+                doLable.push(sale.owner);
+                doData.push(getNumberOfItemsInSale(sale));
+
+                doLable1.push(sale.owner);
+                doData1.push(getItemsTotalPriceForSale(sale));
+
+            }
 
 
-            $scope.doughnutLabels1 = [ data[ 0 ].owner, data[ 1 ].owner ];
-            $scope.doughnutData1 = [getItemsTotalPriceForSale(data[ 0 ]),getItemsTotalPriceForSale(data[ 1 ])];
+            $scope.doughnutLabels = doLable;
+            $scope.doughnutData = doData;
+
+            $scope.doughnutLabels1 = doLable1;
+            $scope.doughnutData1 = doData1;
 
 
         });
@@ -43,17 +66,6 @@ app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', 'U
 
 } ]);
 
-function getTotalSumForDay( data ) {
-    var totalSumForDay = 0;
-
-    for ( var i = 0; i < data.length; i++ ) {
-        var sale = data[ i ];
-        totalSumForDay = getItemsTotalPriceForSale(sale);
-    }
-
-    return totalSumForDay;
-
-}
 
 function getItemsTotalPriceForSale( sale ) {
 
@@ -62,11 +74,25 @@ function getItemsTotalPriceForSale( sale ) {
 
     for ( var j = 0; j < items.length; j++ ) {
         var item = items[ j ];
-        totalSum += Number(item.totalPrice);
+        totalSum += Number(item.totalPrice) * item.quant;
     }
 
     return totalSum
 }
+
+function getNumberOfItemsInSale( sale ) {
+
+    var totalSum = 0;
+    var items = sale._items;
+
+    for ( var j = 0; j < items.length; j++ ) {
+        var item = items[ j ];
+        totalSum += item.quant;
+    }
+
+    return totalSum
+}
+
 
 
 function getNumberOfItemsSold( data ) {
