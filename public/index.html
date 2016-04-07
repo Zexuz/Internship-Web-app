@@ -2,6 +2,7 @@
 <html lang="en" ng-app="myApp">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
     <!-- Google auth -->
     <meta name="google-signin-scope" content="profile email">
     <meta name="google-signin-client_id"
@@ -30,25 +31,21 @@
 
 </head>
 <body>
-<nav>
-    <div class="nav-wrapper container">
-<<<<<<< HEAD
-        <ul id="nav" class="right hide-on-med-and-down">
-            <li><a href="./#/manual">Manual input</a></li>
-=======
-        <ul id="nav" class="right">
-            <li><a href="./#/camera">Camera</a></li>
->>>>>>> master
-            <li><a href="./#/stats">Stats</a></li>
-            <li><a href="./#/receipt">Receipt</a></li>
-            <li><a href="./#/items">Shopping Cart</a></li>
-            <li><a href="./#/index">Index</a></li>
-            <li><a href="./#/login">Login</a></li>
-        </ul>
-    </div>
+<div class="header row">
+    <h1 class="center col s12">NAME</h1>
+</div>
+
+<nav class="row">
+    <ul class="nav col s12">
+        <li class="col s4" onclick="setActive(this)"><a href="./#/start">Start</a></li>
+        <li class="col s4" onclick="setActive(this)"><a href="./#/items">Varukorg</a></li>
+        <li class="col s4" onclick="setActive(this)"><a href="./#/receipt">Kvitto</a></li>
+    </ul>
 </nav>
 
-<div data-ng-view></div>
+<div class="container">
+    <div data-ng-view></div>
+</div>
 
 <!-- MY other libs -->
 <script src="lib/Stats.js"></script>
@@ -76,7 +73,21 @@
 <script src="app/services/statsFactory.js"></script>
 <script src="app/services/loginFactory.js"></script>
 
+<script type="text/javascript">
 
+
+    function setActive(ele) {
+        var linkList = $('li');
+
+        for (var i = 0; i < linkList.length; i++) {
+            $(linkList[i]).removeClass('active');
+        }
+
+        $(ele).addClass('active');
+
+    }
+
+</script>
 
 </body>
 </html>
