@@ -11,7 +11,7 @@ app.config([ '$routeProvider',
 
             .when('/start', {
                 templateUrl: '../views/startView.html',
-                controller: 'startController'
+                controller: 'loginController'
             })
 
             .when('/main', {

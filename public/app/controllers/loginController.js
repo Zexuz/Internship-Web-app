@@ -33,6 +33,7 @@ app.controller('loginController', [ '$scope', 'UserFactory', '$http', 'LoginFact
         });
     };
 
+
     $scope.signOut = function () {
         loginFactory.initGoogleAuth(function () {
             loginFactory.logOutFromGoogle(function () {
