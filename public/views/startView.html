@@ -5,5 +5,15 @@
     felis. Ut in fermentum tortor. Morbi et lacinia nunc. Aenean elementum mollis enim bibendum pellentesque.
 </p>
 <div class="center">
-    <a href="./#/main" class="myButton">Börja handla</a>
+
+    <div>
+        <a href="./#/main" class="my-green-btn" data-ng-show="showSignOut">Börja handla</a>
+    </div>
+
+    <h4>{{status}}</h4>
+
+
+
+    <a href="" data-ng-show="showSignOut" class="my-black-btn" data-ng-click="signOut();">Sign out</a>
+    <a href="" data-ng-show="showLogin" class="my-green-btn" data-ng-click="onLogInButtonClick()">Log In</a>
 </div>

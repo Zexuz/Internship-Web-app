@@ -12,7 +12,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
         if ( !key ) Toast.showError(strNotLoggedIn);
 
         cart.addItem(article, key, function ( err, updatedCart ) {
-            if ( err ) return Toast.showError;
+            if ( err ) return Toast.showError(err);
             $scope.myItems = updatedCart.items;
         })
 
@@ -22,7 +22,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
         if ( !key ) Toast.showError(strNotLoggedIn);
 
         cart.removeItem(item, key, function ( err, updatedCart ) {
-            if ( err ) return Toast.showError;
+            if ( err ) return Toast.showError(err);
 
             console.log(updatedCart);
             $scope.myItems = updatedCart.items;
@@ -34,7 +34,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
         if ( !key ) Toast.showError(strNotLoggedIn);
 
         cart.emptyMyCart(key, function ( err, updatedCart ) {
-            if ( err ) return Toast.showError;
+            if ( err ) return Toast.showError(err);
 
             $scope.myItems = updatedCart.items;
         });
@@ -43,7 +43,7 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
     $scope.pay = function () {
         Toast.showMessage("Paying....", true);
         cart.pay(key, function ( err ) {
-            if ( err ) return Toast.showError;
+            if ( err ) return Toast.showError(err);
 
             Toast.showMessage("Done", true);
         })
@@ -55,6 +55,12 @@ app.controller('cartController', [ '$scope', '$http', 'CartFactory', 'UserFactor
 
         $scope.items = data;
 
+    });
+
+    cart.getMyCart(key,function (err,data) {
+        if ( err ) return Toast.showError(err);
+
+        $scope.myItems = data.items;
     });
 
     $scope.openModal = function ( id ) {
