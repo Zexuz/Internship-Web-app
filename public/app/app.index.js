@@ -15,8 +15,13 @@ app.config([ '$routeProvider',
             })
 
             .when('/main', {
-                templateUrl: '../views/mainView.html',
-                controller: 'startController'
+                templateUrl: '../views/mainView.html'
+            })
+
+
+            .when('/mycart', {
+                templateUrl: '../views/mycartView.html',
+                controller: 'cartController'
             })
 
             .when('/items', {
