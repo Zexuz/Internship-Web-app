@@ -17,10 +17,7 @@
     "chartist": "^0.9.7",
     "Chart.js": "^1.0.2",
     "angular-chart.js": "^0.9.0",
-<<<<<<< HEAD
-    "angular-virtual-keyboard": "^0.4.3"
-=======
+    "angular-virtual-keyboard": "^0.4.3",
     "quagga": "^0.9.2"
->>>>>>> master
   }
 }
