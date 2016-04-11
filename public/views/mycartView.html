@@ -10,24 +10,20 @@
     </thead>
     <tbody>
 
-    <div class="row">
 
+    <tr data-ng-repeat="item in myItems">
+        <td>{{item.name}}</td>
+        <td>{{item.salePrice}} * {{item.quant}}st</td>
+        <td>{{item.VAT}}%</td>
+        <td>{{item.totalPrice}}</td>
+        <td data-ng-click="removeItem(item)" class="red"> REMOVE</td>
+    </tr>
 
-        <tr data-ng-repeat="item in myItems">
-            <td>{{item.name}}</td>
-            <td>{{item.salePrice}} * {{item.quant}}st</td>
-            <td>{{item.VAT}}%</td>
-            <td>{{item.totalPrice}}</td>
-            <td data-ng-click="removeItem(item)" class="red"> REMOVE</td>
-        </tr>
-
-    </div>
 
     </tbody>
-
-    <div class="buttons">
-        <a href="" class="my-green-btn">Lägg till fler varor</a>
-        <a href="" class="my-green-btn">Bettala</a>
-    </div>
-
 </table>
+
+<div class="buttons bottom">
+    <a href="./#/main" class="my-green-btn">Lägg till fler varor</a>
+    <a href="" data-ng-click="pay()" class="my-green-btn">Bettala</a>
+</div>

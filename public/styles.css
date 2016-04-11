@@ -41,10 +41,9 @@ img {
 }
 
 nav {
-    background-color: #E1D6FE;
+    background-color: #b7acd7;
     box-shadow: none;
     text-transform: uppercase;
-    -webkit-text-size-adjust: none;
 }
 
 .nav {
@@ -136,6 +135,7 @@ nav {
     position: relative;
     min-height: 150px;
 }
+
 
 .center{
     display: block;
