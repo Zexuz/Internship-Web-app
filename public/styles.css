@@ -118,6 +118,10 @@ nav {
 
 }
 
+.stretchy{
+    min-width: 100%;
+}
+
 .my-black-btn:hover {
     background-color: #f5fff2;
     color: #565656;

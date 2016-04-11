@@ -3,13 +3,20 @@ var app = angular.module('myApp');
 
 app.controller('loginController', [ '$scope', 'UserFactory', '$http', 'LoginFactory', function ( $scope, userFactory, $http, loginFactory ) {
 
+
+
     var googleUser = userFactory.getUserInfo();
 
     if ( googleUser && googleUser.name ) {
+        $scope.showSignOut = true;
+        $scope.showLogin = false;
         $scope.status = "You are logged as :" + googleUser.name;
     } else {
-        $scope.status = "Not logged in!";
+        $scope.showSignOut = false;
+        $scope.showLogin = true;
+        $scope.status = "Du måste logga in innan du kan börja!";
     }
+
 
     $scope.onLogInButtonClick = function () {
         loginFactory.initGoogleAuth(function () {
@@ -27,6 +34,8 @@ app.controller('loginController', [ '$scope', 'UserFactory', '$http', 'LoginFact
 
                     userFactory.saveUserInfo(user);
                     console.log(user);
+                    $scope.showSignOut = true;
+                    $scope.showLogin = false;
                 });
 
             });
@@ -44,6 +53,8 @@ app.controller('loginController', [ '$scope', 'UserFactory', '$http', 'LoginFact
                     
                     $scope.status = "Successfully logged out!";
                     userFactory.deleteUserInfo();
+                    $scope.showSignOut = false;
+                    $scope.showLogin = true;
                 });
 
             });
