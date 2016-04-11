@@ -50,6 +50,12 @@ app.config([ '$routeProvider',
             })
 
 
+            .when('/scan', {
+                templateUrl: '../views/scanView.html',
+                controller: 'EANController'
+            })
+
+
             .otherwise({
                 redirectTo: '/start'
             });
