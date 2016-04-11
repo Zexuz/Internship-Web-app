@@ -143,10 +143,11 @@ nav {
     min-height: 150px;
 }
 
-.buttons {
+.soft-padding {
 
 
     margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 .center {
