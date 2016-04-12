@@ -156,5 +156,22 @@ nav {
     margin-right: auto
 }
 
+#header{
+    position: fixed;
+    top: 0;
+    z-index: 999;
+}
+
+#content{
+    margin-top: 66px;
+}
+
+.back {
+    position: fixed;
+    top: 17px;
+    z-index: 999;
+    left: 10px;
+}
+
 
 
