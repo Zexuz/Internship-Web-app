@@ -24,28 +24,32 @@
     <script src="./app/app.index.js"></script>
     <!-- Styles-->
     <link href="bower_components/materialize/dist/css/materialize.css" rel="stylesheet" type="text/css">
-    <link href="bower_components/angular-virtual-keyboard/release/angular-virtual-keyboard.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="bower_components/angular-virtual-keyboard/release/angular-virtual-keyboard.css" rel="stylesheet"
+          type="text/css">
     <link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css">
     <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css">
     <link rel="stylesheet" type="text/css" href="styles.css">
 
 </head>
 <body>
-<div class="header row">
+<div id="header" class="header row">
     <h1 class="center col s12">Cash-IT</h1>
 </div>
 
-<nav class="row">
-    <ul class="nav col s12">
-        <li class="col s4" onclick="setActive(this)"><a href="./#/start">Användare</a></li>
-        <li class="col s4" onclick="setActive(this)"><a href="./#/mycart">Varukorg</a></li>
-        <li class="col s4" onclick="setActive(this)"><a href="./#/receipt">Kvitto</a></li>
-    </ul>
-</nav>
-<a class="btn blue hide-on-med-and-down" onclick="window.history.back()">BACK</a>
+<div id="content">
+    <nav class="row">
+        <ul class="nav col s12">
+            <li class="col s4" onclick="setActive(this)"><a href="./#/start">Användare</a></li>
+            <li class="col s4" onclick="setActive(this)"><a href="./#/mycart">Varukorg</a></li>
+            <li class="col s4" onclick="setActive(this)"><a href="./#/stats">Statestik</a></li>
+        </ul>
+    </nav>
+    <div class="back" onclick="window.history.back()"><a href=""><img src="backbutton.png" alt="back button"/></a></div>
 
-<div class="container">
-    <div data-ng-view></div>
+    <div class="container">
+        <div data-ng-view></div>
+    </div>
 </div>
 
 <!-- MY other libs -->
@@ -87,6 +91,22 @@
         $(ele).addClass('active');
 
     }
+
+    function enterFullScreen() {
+        if (!document.fullscreenElement &&    // alternative standard method
+                !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {  // current working methods
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+            }
+        }
+    }
+
 
 </script>
 
