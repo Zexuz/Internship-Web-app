@@ -66,6 +66,12 @@ function pay( req, res ) {
 
     var cart = req.app.locals.tempdata.currentCashier.cart;
     //add it to payed carts
+    cart.owner = {
+        id:req.app.locals.tempdata.currentCashier.id,
+        name:req.app.locals.tempdata.currentCashier.name,
+        email:req.app.locals.tempdata.currentCashier.email
+    };
+
     req.app.locals.cartHelper.addPayedCart(cart);
 
     var cartHelper = req.app.locals.cartHelper;

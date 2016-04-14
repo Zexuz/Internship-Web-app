@@ -8,7 +8,7 @@ app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', 'U
         console.log("fetching....");
         stats.getAllInfo(user.getUserInfo().id, function ( err, data ) {
             if ( err ) return Toast.showError(err);
-            
+
             var stats = new Stats();
 
             stats.apiData = data;
@@ -43,10 +43,10 @@ app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', 'U
             for ( let i = 0; i < cashier.length; i++ ) {
                 let sale = cashier[ i ];
 
-                doLable.push(sale.owner);
+                doLable.push(sale.owner.name);
                 doData.push(getNumberOfItemsInSale(sale));
 
-                doLable1.push(sale.owner);
+                doLable1.push(sale.owner.name);
                 doData1.push(getItemsTotalPriceForSale(sale));
 
             }
@@ -77,7 +77,7 @@ function getItemsTotalPriceForSale( sale ) {
         totalSum += Number(item.totalPrice) * item.quant;
     }
 
-    return totalSum
+    return Math.floor(totalSum);
 }
 
 function getNumberOfItemsInSale( sale ) {
