@@ -1,9 +1,14 @@
 # Internship-Web-app
-My Internship task
+This is my 5 weeks Internship WEB-SPA
+
+It's a mini prototype of a online cash-register.
+
+It is built on nodejs as a RESTful API and angularjs as a GUI.
+
 
 
 ## Install
-  ``$ git clone <repop>``
+  ``$ git clone https://github.com/Zexuz/Internship-Web-app``
   
  `` $ npm install``
   
@@ -17,13 +22,13 @@ My Internship task
   
   It should now run on port 3000
   
-  If edits where made in the public/lib, run the ```.bat``` file
+  If edits where made in the public/lib, run the ```.bat``` file before running ``npm start``
 
-  To make the debug output work add this to your envoriment vars ```DEBUG=REST:```
+  To make the debug output work add this to your environment vars ```DEBUG=REST:```
 
 # Testing
 
-```npm test``` will run mocha and all our test cases.
+```npm test``` will run mocha and all our test cases. (You do need to get a new google token once every 30 min, can be done be checking the login request in the browser or it will fail)
 
 ## Api
 
@@ -129,6 +134,6 @@ All data is returned with a status code (200 for success) and in the format ```{
   Returns : **List of all products in our database**  
   
 ##### Descriptions:
-  Used to get a list of all products in our database (atm products from best buy)
+  Used to get a list of all products in our database (ATM products from best buy)
   
 
