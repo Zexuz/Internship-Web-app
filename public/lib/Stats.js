@@ -26,7 +26,7 @@ class Stats {
         for ( var i = 0; i < sale._items.length; i++ ) {
             var item = sale._items[ i ];
 
-            totalSum += Number(item.totalPrice) * item.quant;
+            totalSum += Number(item.salePrice) * item.quant;
         }
 
         return totalSum;
@@ -40,7 +40,7 @@ class Stats {
         for ( var i = 0; i < this.apiData.length; i++ ) {
             var sale = this.apiData[ i ];
 
-            var index = this._indexOf(cashiers, 'owner', sale.owner);
+            var index = this._indexOf(cashiers, ['owner','email'], sale.owner.email);
             if ( index === -1 ) {
                 cashiers.push(sale);
                 continue;
@@ -54,10 +54,10 @@ class Stats {
 
     }
 
-    _indexOf( array, prop, value ) {
+    _indexOf( array, propArray, value ) {
 
         for ( var j = 0; j < array.length; j++ ) {
-            if ( array[ j ][ prop ] === value )
+            if ( array[ j ][ propArray[0] ][ propArray[1] ] === value ) //hotfix AF
                 return j;
         }
 

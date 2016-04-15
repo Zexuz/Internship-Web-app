@@ -14,14 +14,12 @@ app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', 'U
 
             stats.apiData = data;
 
-            var cashier = stats.getCashiers();
-
 
             $scope.numberOfItemsSold = getNumberOfItemsSold(data);
             $scope.numberOfCompleteSales = data.length;
 
 
-            $scope.barLabels = [ 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday' ];
+            $scope.barLabels = [ 'Måndag','Tisdag','Onsdag','Torsdag','Fredag','Lördag','Söndag' ];
             $scope.barSeries = [ 'Total Sales' ];
 
             $scope.barData = [
@@ -33,6 +31,7 @@ app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', 'U
                     stats.getTotalSoldToday() * randomNumber(0.1, 1.9)
                 ]
             ];
+            var cashier = stats.getCashiers();
 
 
             var doLable = [];
@@ -46,10 +45,10 @@ app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', 'U
 
                 doLable.push(sale.owner.name);
                 doData.push(getNumberOfItemsInSale(sale));
+                console.log(sale);
 
                 doLable1.push(sale.owner.name);
                 doData1.push(getItemsTotalPriceForSale(sale));
-
             }
 
 
@@ -75,7 +74,7 @@ function getItemsTotalPriceForSale( sale ) {
 
     for ( var j = 0; j < items.length; j++ ) {
         var item = items[ j ];
-        totalSum += Number(item.totalPrice) * item.quant;
+        totalSum += Number(item.salePrice) * item.quant;
     }
 
     return Math.floor(totalSum);

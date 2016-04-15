@@ -5,7 +5,7 @@ app.controller('cartController', ['$scope', '$http', 'CartFactory', 'UserFactory
     var strNotLoggedIn = "Du är inte inloggad, var snäll logga in";
     if (userFactory.getUserInfo() === null)return Toast.showError(strNotLoggedIn);
     //get the token aka user id
-    var key = userFactory.getUserInfo();
+    var key = userFactory.getUserInfo().id;
 
     if (!key)return Toast.showError(strNotLoggedIn);
 
