@@ -9,6 +9,9 @@
           content="810399730223-922f1ahb6281ce72fvrm7u6ou6g52bb0.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js"></script>
     <title>Title</title>
+    <script type="text/javascript">
+        if(!window.console) {console={}; console.log = function(){};}
+    </script>
     <!-- BOWER-->
     <script src="bower_components/quagga/example/vendor/jquery-1.9.0.min.js"></script>
     <script src="bower_components/angular/angular.js"></script>
@@ -53,14 +56,7 @@
 </div>
 
 <!-- MY other libs -->
-<script src="lib/Stats.js"></script>
-<script src="lib/RestApi/bundle.js"></script>
-<script>
-    var RestApi = require('RestApi');
-    var ArticleApi = require('ArticleApi');
-    var CartApi = require('CartApi');
-    var StatsApi = require('StatsApi');
-</script>
+<script src="lib/RestApi/test/bundle.js"></script>
 <!-- My angular scripts-->
 <!-- Controllers-->
 <script src="app/controllers/startController.js"></script>
