@@ -3,9 +3,10 @@ var app = angular.module('myApp');
 
 app.controller('statsController', [ '$scope', 'StatsFactory', 'ToastFactory', 'UserFactory', function ( $scope, stats, Toast, user ) {
 
+    var strNotLoggedIn = "Du är inte inloggad, var snäll logga in";
+    if (user.getUserInfo() === null)return Toast.showError(strNotLoggedIn);
 
     $scope.getAllInfo = function () {
-        console.log("fetching....");
         stats.getAllInfo(user.getUserInfo().id, function ( err, data ) {
             if ( err ) return Toast.showError(err);
 
